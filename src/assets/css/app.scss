@@ -3,6 +3,7 @@
 
 #app {
   background-color: $theme-background-color;
+  opacity: 0.8;
   @include layout(flex-start, stretch, column);
 }
 

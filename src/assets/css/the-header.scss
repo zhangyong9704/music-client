@@ -4,12 +4,13 @@
 .the-header {
   position: fixed;
   @include layout;
+  //background-image: url("../img/backgroud.jpg");
   width: 100%;
   height: $header-height;
   line-height: $header-height;
   padding: $header-padding;
   margin: $header-margin;
-  background-color: $theme-header-color;
+  //background-color: $theme-header-color;
   @include box-shadow($box-shadow);
   box-sizing: border-box;
   z-index: 100;
@@ -31,6 +32,7 @@
 .navbar {
   height: $header-height;
   white-space: nowrap;
+  border-radius: $header-search-radius;
   li {
     margin: $header-nav-margin;
     padding: $header-nav-padding;
