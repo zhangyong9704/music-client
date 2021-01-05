@@ -1,6 +1,6 @@
 <template>
-  <div id="app">    
-    <router-view class="music-content"/>   
+  <div id="app">
+    <router-view class="music-content"/>
   </div>
 </template>
 
@@ -9,11 +9,11 @@
 export default {
   name: 'App',
   components: {
-    
+
   }
 }
 </script>
 
 <style  lang="scss" scoped>
-@import './assets/css/app.scss';
+@import "./assets/css/app.scss";
 </style>
