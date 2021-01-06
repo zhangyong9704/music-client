@@ -8,7 +8,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component:() =>import('../components/Home')
+      component:() =>import('../pages/index/Home')
     }
   ],
   scrollBehavior (to, from, savedPosition) {

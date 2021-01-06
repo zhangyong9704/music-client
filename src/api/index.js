@@ -1,33 +1,26 @@
-import request from '@/utils/request'
+import request from '@/utils/request';
 
 /*
 * 主页信息查询
 * */
 export default {
 
-  fetchData () {
+  /* 评论前十的歌手 */
+  indexTopTenSinger () {
     return request({
-      url: './table.json',
-      method: 'get',
-      params: 'query'
-    })
-  },
-
-  /* 主页歌手、歌曲、歌单数量查询 */
-  indexCount () {
-    return request({
-      url: `index/counts`,
+      url: `index-front/top-singer`,
       method: 'get'
     })
   },
 
-  /* 获得歌手国际地区分布 */
-  singerRegion () {
+  /*评分前十的歌单*/
+  indexTopTenSongList () {
     return request({
-      url: `index/singer_region`,
+      url: `index-front/top-songList`,
       method: 'get'
     })
   },
+
 
   /* 获得歌手类型组合 */
   singersCombinationType () {

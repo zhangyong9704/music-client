@@ -5,11 +5,12 @@
       <svg class="icon">
         <use xlink:href = "#icon-erji"></use>
       </svg>
-      <span>music</span>
+      <span>Music</span>
     </div>
     <!--左侧浏览的菜单栏-->
     <ul class="navbar">
-      <li v-for="(item,index) in leftHeaderList" :key="index" >
+      <li v-for="(item,index) in leftHeaderList" :key="index"
+          :class="{active:index===leftHaderIndex}" @click="getHeaderIndex(index,'left')">
         <i :class="item.icon"></i>
         <a>{{item.title}}</a>
       </li>
@@ -17,7 +18,7 @@
     <!--中间搜索框-->
     <div class="header-middle">
       <div class="header-search">
-        <input type="text" placeholder="搜索音乐" v-model="keyWords">
+        <input type="text" placeholder="搜索..." v-model="keyWords">
         <div class="search-btn" >
           <svg class="icon">
             <use xlink:href = "#icon-sousuo"></use>
@@ -26,8 +27,9 @@
       </div>
     </div>
     <!--登录注册部分-->
-    <ul class="navbar">
-      <li v-for="(item,index) in rightHeaderList" :key="index">
+    <ul class="navbar" >
+      <li v-for="(item,index) in rightHeaderList" :key="index"
+          :class="{active:index===rightHeaderIndex}" @click="getHeaderIndex(index,'right')">
         <i :class="item.icon"></i>
         <a>{{item.title}}</a>
       </li>
@@ -53,7 +55,10 @@
     data(){
       return{
         keyWords: '',
+        leftHaderIndex:-1,  //左侧菜单栏点击获取下标值
+        rightHeaderIndex:-1, //右侧菜单栏点击判断
         leftHeaderList: [   //左侧侧边栏内容
+
           {
             icon: 'el-icon-s-home',
             path: '/',
@@ -106,6 +111,19 @@
         ],
 
       }
+    },
+    methods:{
+      //显示激活的选项卡
+      getHeaderIndex(index,flag){
+        if ("left"===flag){
+          this.leftHaderIndex = index;
+          this.rightHeaderIndex = -1;
+        }else{
+          this.rightHeaderIndex = index;
+          this.leftHaderIndex = -1;
+        }
+      },
+
     },
     mounted () {
         document.querySelector('#user').addEventListener('click',function(e){

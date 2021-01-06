@@ -181,5 +181,8 @@
 
 .active {
   color: #f56c6c !important;
+  background-color: #1fc8db; /* 不支持线性的时候显示 */
+  background-image: linear-gradient(#1fc8db 51%, #2cb5e8 75%);
+  //border-bottom: 3px solid rgb(255, 208, 75) !important;
   border-bottom: 3px solid #f56c6c !important;
 }

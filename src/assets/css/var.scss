@@ -27,7 +27,7 @@ $font-size-header: 18px;
 
 // header
 $header-background-color:#1fc8db;
-$header-background-image: linear-gradient(141deg,#9fb8ad 0%,#1fc8db 51%,#2cb5e8 75%);
+$header-background-image: linear-gradient(141deg,#cddc39 0%,#1fc8db 51%,#2cb5e8 75%);
 $header-height: 70px;
 $header-line-height: 68px;
 $header-padding: 0 80px;
@@ -35,7 +35,7 @@ $header-margin: 0;
 $header-logo-width: 150px;
 $header-logo-margin: 0 10px;
 $header-nav-padding: 0 10px;
-$header-nav-margin: 0 10px;
+$header-nav-margin: 0 5px;
 $header-search-radius: 5px;
 $header-search-height: ($header-height / 2);
 $header-search-width: 300px;
