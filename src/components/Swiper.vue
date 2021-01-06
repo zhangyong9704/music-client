@@ -1,9 +1,9 @@
 <template>
   <!--轮播图组件-->
   <div class="swiper">
-    <el-carousel :interval="4000" type="card" height="300px">
+    <el-carousel :interval="4000" type="card"  height="300px">
       <el-carousel-item v-for="(item,index) of swiperList" :key="index">
-        <img :src="item.picImg" alt=""/>
+        <el-image :src="item.picImg" alt=""/>
       </el-carousel-item>
     </el-carousel>
   </div>

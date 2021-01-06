@@ -4,13 +4,13 @@
 .the-header {
   position: fixed;
   @include layout;
-  //background-image: url("../img/backgroud.jpg");
   width: 100%;
   height: $header-height;
-  line-height: $header-height;
+  line-height: $header-line-height;
   padding: $header-padding;
   margin: $header-margin;
-  //background-color: $theme-header-color;
+  background-color: $header-background-color;
+  background-image: $header-background-image;
   @include box-shadow($box-shadow);
   box-sizing: border-box;
   z-index: 100;
@@ -32,16 +32,22 @@
 .navbar {
   height: $header-height;
   white-space: nowrap;
-  border-radius: $header-search-radius;
   li {
     margin: $header-nav-margin;
     padding: $header-nav-padding;
     font-size: $font-size-header;
+    font-weight: bold;
     color: $color-grey;
     text-align: center;
     border-bottom: none;
     box-sizing: border-box;
     cursor: pointer;
+    &:hover {
+      background-color: #1fc8db; /* 不支持线性的时候显示 */
+      background-image: linear-gradient(#1fc8db 51%, #2cb5e8 75%);
+      color: rgb(255, 208, 75);
+      border-bottom: 3px solid rgb(255, 208, 75) !important;
+    }
   }
 }
 
@@ -54,24 +60,38 @@
     height: $header-search-height;
     width: $header-search-width;
     font-size: $font-size-default;
-    border: 0;
+    border: 2px springgreen ;
     text-indent: 10px;
     background-color: $color-light-grey;
     &:focus {
       outline: none;
     }
+    &:hover {
+      background-color: $color-light-white;
+    }
   }
 
   .search-btn {
     @include layout(center, center);
-    background-color: $color-blue-active;
+    background-color: red ; /* 浏览器不支持时显示 */
+    background-image: linear-gradient(to right , #e66465, rgb(255, 208, 75));
     width: $header-search-btn-width;
     height: $header-search-btn-height;
     cursor: pointer;
     .icon {
       @include icon(1.2em, $color-white);
     }
+    &:hover {
+      background-color: sandybrown;
+      background-image: linear-gradient(to right ,rgb(255, 208, 75),yellowgreen);
+    }
   }
+}
+/*搜索栏布局*/
+.header-middle {
+  position: relative;
+  @include layout(center, center);
+  margin: $header-user-margin;
 }
 
 /*用户*/
@@ -92,16 +112,17 @@
 }
 
 .menu {
-  display: none;
-  line-height: 0px;
+  //display: none;
+  line-height: 0;
   position: absolute;
-  background-color: $color-white;
+  background-color: #1fc8db; /* 不支持线性的时候显示 */
+  background-image: linear-gradient(#1fc8db 35%, #2cb5e8 75%);
   @include box-shadow(1px 1px 10px rgba(0, 0, 0, 0.4));
   width: $header-menu-width;
   padding: $header-menu-padding;
   border-radius: $header-menu-radius;
   top: $header-height + 10px;
-  right: -20px;
+  right: 10px;
   z-index: 5;
   text-align: center;
   cursor: pointer;
@@ -113,8 +134,10 @@
     line-height: 40px;
 
     &:hover {
-      background-color: $theme-color;
-      color: $color-white;
+      background-color: #1fc8db; /* 不支持线性的时候显示 */
+      background-image: linear-gradient(141deg,#9fb8ad 0%,#1fc8db 51%,#2cb5e8 75%);
+      color: rgb(255, 208, 75);
+      border-bottom: 3px solid rgb(255, 208, 75) !important;
     }
   }
 
@@ -122,11 +145,11 @@
     content: " ";
     display: block; /*独占一行*/
     position: absolute;
-    right: 45px;
+    right: 70px;
     top: -5px; /*果断的露出上半部分*/
     width: 10px;
     height: 10px;
-    background-color: $color-white;
+    background-color: #1fc8db;
     /*一个正方形倾斜四十五度就是三角了但是要把下半部分藏起来*/
     transform: rotate(45deg);
   }
@@ -140,6 +163,6 @@
 }
 
 .active {
-  color: $theme-color !important;
-  border-bottom: 5px solid $theme-color !important;
+  color: #f56c6c !important;
+  border-bottom: 3px solid #f56c6c !important;
 }
