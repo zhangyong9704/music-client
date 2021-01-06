@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     getTopTenSinger(){
-      Index.getTopTenSinger().then((result => {
+      Index.indexTopTenSinger().then((result => {
         if (result && result.code === 200){
           this.indexList[0].list = result.data.data;
         }
@@ -53,7 +53,7 @@ export default {
     },
 
     getTopTenSongList(){
-      Index.getTopTenSongList().then((result => {
+      Index.indexTopTenSongList().then((result => {
         if (result && result.code === 200){
           this.indexList[1].list = result.data.data;
         }
