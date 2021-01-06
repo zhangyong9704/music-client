@@ -108,11 +108,15 @@
     img {
       width: 100%;
     }
+    &:hover{
+      display: block;
+      animation: rotate 6s linear infinite; /*图片旋转*/
+    }
   }
 }
 
 .menu {
-  //display: none;
+  display: none;
   line-height: 0;
   position: absolute;
   background-color: #1fc8db; /* 不支持线性的时候显示 */
@@ -141,6 +145,7 @@
     }
   }
 
+
   :nth-child(1):before {
     content: " ";
     display: block; /*独占一行*/
@@ -156,6 +161,16 @@
   // :nth-child(1):hover:before {
   // background-color: $theme-color;
   // }
+}
+
+/*用户姓名样式*/
+.name {
+  font-weight: bold;
+  font-size: $font-size-header;
+  &:hover {
+    color: rgb(255, 208, 75);
+    cursor:pointer;
+  }
 }
 
 .show {

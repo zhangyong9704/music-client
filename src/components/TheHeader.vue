@@ -35,9 +35,9 @@
     <!--右边用户头像部分-->
     <div class="header-right" v-show="true">
       <div id='user'>
-        <img src='../assets/img/user.jpg' alt="">
+        <img src='../assets/img/user.jpg' alt="" >
       </div>
-      <span><strong>用户名</strong></span>
+      <span class="name">用户名</span>
       <ul class="menu">
         <li v-for="(item,index) of dropMenuList" :key="index" >
           <i :class="item.icon"></i>
