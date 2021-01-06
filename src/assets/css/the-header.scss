@@ -113,6 +113,9 @@
       animation: rotate 6s linear infinite; /*图片旋转*/
     }
   }
+  &:hover  .menu{
+    display: block;
+  }
 }
 
 .menu {
@@ -125,7 +128,7 @@
   width: $header-menu-width;
   padding: $header-menu-padding;
   border-radius: $header-menu-radius;
-  top: $header-height + 10px;
+  top: $header-height + 2px;
   right: 10px;
   z-index: 5;
   text-align: center;
@@ -145,10 +148,9 @@
     }
   }
 
-
   :nth-child(1):before {
     content: " ";
-    display: block; /*独占一行*/
+    display: inline; /*独占一行*/
     position: absolute;
     right: 70px;
     top: -5px; /*果断的露出上半部分*/

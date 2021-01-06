@@ -27,7 +27,7 @@
     </div>
     <!--登录注册部分-->
     <ul class="navbar">
-      <li v-for="(item,index) of rightHeaderList" :key="index">
+      <li v-for="(item,index) in rightHeaderList" :key="index">
         <i :class="item.icon"></i>
         <a>{{item.title}}</a>
       </li>
@@ -39,8 +39,7 @@
       </div>
       <span class="name">用户名</span>
       <ul class="menu">
-        <li v-for="(item,index) of dropMenuList" :key="index" >
-          <i :class="item.icon"></i>
+        <li v-for="(item,index) in dropMenuList" :key="index" >
           <a>{{item.title}}</a>
         </li>
       </ul>
@@ -54,53 +53,72 @@
     data(){
       return{
         keyWords: '',
-
-        leftHeaderList: [
+        leftHeaderList: [   //左侧侧边栏内容
           {
             icon: 'el-icon-s-home',
+            path: '/',
             title: '首页'
           },
           {
             icon: 'el-icon-s-data',
+            path: '/singer',
             title: '歌手'
           },
           {
             icon: 'el-icon-s-management',
+            path: 'song-list',
             title: "歌单"
           },
           {
             icon: 'el-icon-s-custom',
+            path: 'my-music',
             title: '我的音乐'
           }
-      ],
-        rightHeaderList: [
+        ],
+        rightHeaderList: [   //右侧侧边栏内容
           {
             icon: 'el-icon-s-promotion',
+            path: '/register',
             title: '注册'
           },
           {
             icon: 'el-icon-s-check',
+            path: '/login',
             title: '登录'
           },
           {
             icon: 'el-icon-s-opportunity',
+            path: '/about',
             title: '关于我们'
           },
         ],
-        dropMenuList: [ //用户下拉设置
+        dropMenuList: [       //用户下拉内容设置
           {
-            icon: 'el-icon-s-opportunity',
-            title: '关于我们'
+            icon: 'el-icon-star-off',
+            path: '/profile',
+            title: '个人中心'
           },
           {
-            icon: 'el-icon-s-opportunity',
-            title: '关于我们'
+            icon: 'el-icon-star-off',
+            path: '/setting',
+            title: '设置中心'
           },
         ],
+
       }
     },
-    created () {
-    }
+    mounted () {
+        document.querySelector('#user').addEventListener('click',function(e){
+          document.querySelector('.menu').classList.add("show");
+          e.stopPropagation()           //关键在于阻止冒泡
+        },false);
+        document.querySelector('.menu').addEventListener('click',function(e){
+          e.stopPropagation()           //点击菜单内部时，阻止时间冒泡，这样，点击内部时，菜单不会关闭
+        },false);
+        document.addEventListener('click',function(){
+          document.querySelector('.menu').classList.remove('show');
+        },false);
+    },
   }
 </script>
 

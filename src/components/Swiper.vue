@@ -2,24 +2,30 @@
   <!--轮播图组件-->
   <div class="swiper">
     <el-carousel :interval="4000" type="card"  height="300px">
-      <el-carousel-item v-for="(item,index) of swiperList" :key="index">
-        <el-image :src="item.picImg" alt=""/>
+      <el-carousel-item v-for="(item,index) in swiperList" :key="index">
+        <el-image :src="item.path" alt="image not found!"/>
       </el-carousel-item>
     </el-carousel>
   </div>
 </template>
 
 <script>
-import {swiperList} from '../assets/data/swiperData'
 export default {
   name: 'Swapper',
   data(){
     return {
-      swiperList: [] // 图片列表swipe
+      // 图片列表swipe
+      swiperList : [
+        {path: require('../assets/img/swiper/1.jpg')},
+        {path: require('../assets/img/swiper/2.jpg')},
+        {path: require('../assets/img/swiper/3.jpg')},
+        {path: require('../assets/img/swiper/4.jpg')},
+        {path: require('../assets/img/swiper/5.jpg')},
+        {path: require('../assets/img/swiper/6.jpg')},
+        {path: require('../assets/img/swiper/7.jpg')},
+        {path: require('../assets/img/swiper/8.jpg')}
+      ],
     }
-  },
-  created () {
-    this.swiperList = swiperList
   },
 }
 </script>
