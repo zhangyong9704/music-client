@@ -33,12 +33,11 @@
 }
 
 .item-img {
-  height: auto;
+  width: 100%;
   transition: all 0.4s ease;
 }
 
-.kuo,
-.mask {
+.kuo, .mask {
   width: 100%;
   padding-bottom: 100%;
   height: 0;
@@ -48,25 +47,34 @@
 .mask {
   position: absolute;
   top: 0;
-  background-color: rgba(52, 47, 41, 0.4);
+  background-color: rgba(52, 47, 41, 0.4); /* 浏览器不支持时显示 */
+  background-image: linear-gradient(to right , rgb(244 67 54 / 40%), rgb(255, 208, 75, 25%));
   transition: all 0.3s ease-in-out;
   opacity: 0;
-  @include layout(center);
-  > .icon {
-    position: absolute;
-    top: 40%;
-  }
-  &:hover {
-    opacity: 1;
-    cursor: pointer;
-  }
+}
+
+.mask:hover{
+  opacity: 1;
+  cursor: pointer;
 }
 
 .icon {
-  @include icon(2em, rgba(240, 240, 240, 1));
+  position: absolute;
+  top: 20%;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+
+.clearfix:after {
+  clear: both
 }
 
 
+/*时间显示格式*/
 .time {
   font-size: 13px;
   color: #999;
@@ -82,21 +90,7 @@
   float: right;
 }
 
-.image {
-  width: 100%;
-  display: block;
-}
-
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  content: "";
-}
-
-.clearfix:after {
-  clear: both
-}
-
+/*图标默认颜色*/
 .stars{
   float: right;
   display: inline-block;
@@ -105,10 +99,10 @@
   font-weight: 500;
   font-size: 14px;
   border-radius: 4px;
-
-
 }
+
 .stars:hover {
   color: red;
   cursor: pointer;
 }
+

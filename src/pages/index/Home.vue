@@ -8,6 +8,7 @@
           <content-list :content-list="item.list" :icon="item.icon"></content-list>
         </div>
     </div>
+    <scroll-top></scroll-top>
     <the-footer></the-footer>
   </div>
 </template>
@@ -18,14 +19,16 @@
   import TheFooter from '../../components/TheFooter'
   import ContentList from '../../components/ContentList'
   import Index from '@/api/index'
+  import ScrollTop from '../../components/ScrollTop'
 
 export default {
   name: 'home',
   components: {
+    ScrollTop,
     Swiper,
     TheHeader,
     TheFooter,
-    ContentList
+    ContentList,
   },
   data () {
     return {

@@ -5,21 +5,29 @@
       <li class="content-item" v-for="(item,index) in contentList" :key="index">
 <!--        <div class="kuo" >-->
 <!--          <img class="item-img" src="../assets/img/43.jpg" alt="">-->
-<!--&lt;!&ndash;          <div class="mask">&ndash;&gt;-->
-<!--&lt;!&ndash;            <svg class="icon">&ndash;&gt;-->
-<!--&lt;!&ndash;              <use xlink:href="#icon-bofang"></use>&ndash;&gt;-->
-<!--&lt;!&ndash;            </svg>&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--          <div class="mask">-->
+<!--            <svg class="icon">-->
+<!--              <use xlink:href="#icon-bofang"></use>-->
+<!--            </svg>-->
+<!--          </div>-->
 <!--        </div>-->
-        <el-card :body-style="{ padding: '1px' }">
-          <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image" alt="">
+        <el-card :body-style="{ padding: '1px'}">
+          <img :src="getImageURL(item.pic)" class="item-img" alt="暂无图片">
+          <div class="mask">
+            <svg class="icon">
+              <use xlink:href="#icon-bofang"></use>
+            </svg>
+          </div>
           <div style="padding: 14px;" class="clearfix">
             <span>
-              <el-link type="danger" icon="el-icon-headset">
-                {{processingFieldLength(item.name||item.title)}}
-              </el-link>
+              <el-tooltip placement="top">
+                <div slot="content">{{item.name||item.title}}</div>
+                <el-link type="danger" icon="el-icon-headset">
+                  {{processingFieldLength(item.name||item.title)}}
+                </el-link>
+              </el-tooltip>
               <span class="stars">
-                <i :class="item.icon"  >500</i>
+                <i :class="icon"  >500</i>
               </span>
             </span>
             <div class="bottom clearfix">
@@ -37,8 +45,14 @@
   export default {
     name: 'content-list',
     props: {
-      contentList:[],
-      icon:''
+      contentList: {
+        type: Array,
+        required: true
+      },
+      icon: {
+        type: String,
+        required: false
+      }
     },  //子组件接收的数据
     data(){
       return{
@@ -56,6 +70,15 @@
 
       getFieldLength(field){
         return (field || field ==='')?0:field.length
+      },
+
+      getImageURL(URL){
+        debugger
+        if (URL || URL!=='' || URL ==null){
+          return 'http://127.0.0.1:8088'+URL;
+        }else{
+          return 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png'
+        }
       }
 
     }
