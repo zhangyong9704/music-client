@@ -5,7 +5,7 @@
       <swiper></swiper>
         <div class="section" v-for="(item,index) in indexList" :key="index">
           <div class="section-title">{{item.name}}</div>
-          <content-list :content-list="item.list"></content-list>
+          <content-list :content-list="item.list" :icon="item.icon"></content-list>
         </div>
     </div>
     <the-footer></the-footer>
@@ -30,8 +30,8 @@ export default {
   data () {
     return {
       indexList: [
-        {name:"歌单",list: []},
-        {name:"歌手",list: []}
+        {name:"歌单",list: [],icon: 'el-icon-s-data'},
+        {name:"歌手",list: [],icon: 'el-icon-star-off'}
       ],
 
     }
@@ -44,7 +44,7 @@ export default {
     getTopTenSinger(){
       Index.indexTopTenSinger().then((result => {
         if (result && result.code === 200){
-          this.indexList[0].list = result.data.data;
+          this.indexList[1].list = result.data.data;
         }
       }))
       .catch((reason => {
@@ -55,7 +55,7 @@ export default {
     getTopTenSongList(){
       Index.indexTopTenSongList().then((result => {
         if (result && result.code === 200){
-          this.indexList[1].list = result.data.data;
+          this.indexList[0].list = result.data.data;
         }
       }))
         .catch((reason => {

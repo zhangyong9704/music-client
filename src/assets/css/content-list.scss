@@ -33,7 +33,7 @@
 }
 
 .item-img {
-  width: 100%;
+  height: auto;
   transition: all 0.4s ease;
 }
 
@@ -64,4 +64,51 @@
 
 .icon {
   @include icon(2em, rgba(240, 240, 240, 1));
+}
+
+
+.time {
+  font-size: 13px;
+  color: #999;
+}
+
+.bottom {
+  margin-top: 13px;
+  line-height: 12px;
+}
+
+.button {
+  padding: 0;
+  float: right;
+}
+
+.image {
+  width: 100%;
+  display: block;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+
+.clearfix:after {
+  clear: both
+}
+
+.stars{
+  float: right;
+  display: inline-block;
+  background: #FFF;
+  color: #1fc8db;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 4px;
+
+
+}
+.stars:hover {
+  color: red;
+  cursor: pointer;
 }
