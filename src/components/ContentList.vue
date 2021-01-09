@@ -22,17 +22,24 @@
             <span>
               <el-tooltip placement="top">
                 <div slot="content">{{item.name||item.title}}</div>
+
                 <el-link type="danger" icon="el-icon-headset">
                   {{processingFieldLength(item.name||item.title)}}
                 </el-link>
               </el-tooltip>
+              <span>
+                <el-tag size="mini" type="success">{{processingFieldType(item.style || item.sex)}}</el-tag>
+              </span>
               <span class="stars">
-                <i :class="icon"  >500</i>
+                <i :class="icon">{{item.amount || item.grade}}</i>
               </span>
             </span>
             <div class="bottom clearfix">
-              <time class="time">{{item.createTime}}</time>
-              <el-button type="text" class="button">操作按钮</el-button>
+              <time class="time">{{(null===item.createTime)?item.createTime:(item.createTime).substring(0,10)}}</time>
+              <el-tooltip effect="dark" placement="bottom">
+                <div slot="content">{{content}}</div>
+                <el-button type="text" class="button">操作按钮</el-button>
+              </el-tooltip>
             </div>
           </div>
         </el-card>
@@ -42,6 +49,8 @@
 </template>
 
 <script>
+  import {getSexType} from '../mixins/mixins'
+
   export default {
     name: 'content-list',
     props: {
@@ -56,7 +65,7 @@
     },  //子组件接收的数据
     data(){
       return{
-
+        content: '张国荣是一位在全球华人社会和亚洲地区具有影响力的著名歌手、演员和音乐人；大中华区乐坛和影坛巨星；演艺圈多栖发展<br/>最成功的代表之一。张国荣是香港乐坛的殿堂级歌手之一，曾获得香港乐坛最高荣誉金针奖；他是第一位享誉韩国乐坛的华人<br/>',
       }
     },
     created () {
@@ -65,7 +74,37 @@
 
       //处理歌单、歌手标题过长问题
       processingFieldLength(title){
-        return title?title.length<=10?title:title.substring(0,10)+"...":title;
+        return title?title.length<=10?title:title.substring(0,7)+"...":title;
+      },
+
+      //处理歌单、歌手类型、组合、性别问题
+      processingFieldType(title){
+        if (typeof title ==='number' || title==='0'){
+          title =  getSexType(title);
+          return title
+        }else{
+          return title
+        }
+      },
+
+
+      //处理详情介绍自动换行问题
+      processingToolTipContent(title){
+        let result ='';
+        if (title){
+          if (title.length<=55){
+            return title;
+          }else{
+            for (let i = 0; i < Math.ceil(title.length/55); i++) {
+              let temp = title.substring(i*55,(i+1)*55);
+              result +=temp + '<br/>';
+            }
+            console.log(result)
+            return result
+          }
+        }else {
+          return "正在努力整理中..."
+        }
       },
 
       getFieldLength(field){
@@ -73,7 +112,6 @@
       },
 
       getImageURL(URL){
-        debugger
         if (URL || URL!=='' || URL ==null){
           return 'http://127.0.0.1:8088'+URL;
         }else{
