@@ -37,8 +37,8 @@
             <div class="bottom clearfix">
               <time class="time">{{(null===item.createTime)?item.createTime:(item.createTime).substring(0,10)}}</time>
               <el-tooltip effect="dark" placement="bottom">
-                <div slot="content">{{content}}</div>
-                <el-button type="text" class="button">操作按钮</el-button>
+                <div slot="content" v-html="processingToolTipContent(item.introduction,45)"></div>
+                <el-button type="text" class="button">简介</el-button>
               </el-tooltip>
             </div>
           </div>
@@ -65,7 +65,7 @@
     },  //子组件接收的数据
     data(){
       return{
-        content: '张国荣是一位在全球华人社会和亚洲地区具有影响力的著名歌手、演员和音乐人；大中华区乐坛和影坛巨星；演艺圈多栖发展<br/>最成功的代表之一。张国荣是香港乐坛的殿堂级歌手之一，曾获得香港乐坛最高荣誉金针奖；他是第一位享誉韩国乐坛的华人<br/>',
+
       }
     },
     created () {
@@ -89,26 +89,21 @@
 
 
       //处理详情介绍自动换行问题
-      processingToolTipContent(title){
+      processingToolTipContent(title,targetLength){
         let result ='';
         if (title){
-          if (title.length<=55){
+          if (title.length<=targetLength){
             return title;
           }else{
-            for (let i = 0; i < Math.ceil(title.length/55); i++) {
-              let temp = title.substring(i*55,(i+1)*55);
+            for (let i = 0; i < Math.ceil(title.length/targetLength); i++) {
+              let temp = title.substring(i*targetLength,(i+1)*targetLength);
               result +=temp + '<br/>';
             }
-            console.log(result)
-            return result
+            return result+'<code></code>'
           }
         }else {
           return "正在努力整理中..."
         }
-      },
-
-      getFieldLength(field){
-        return (field || field ==='')?0:field.length
       },
 
       getImageURL(URL){
