@@ -18,7 +18,6 @@
     TheHeader,
     TheFooter,
     ScrollTop
-
   }
 }
 </script>

@@ -61,3 +61,14 @@ export function beforeUploadIsTypeFile(file){
   }
   return true;
 }
+
+//获取名字前半部分--歌手名
+export function replaceLName(str){
+  let arr = str.split('-');
+  return arr[0];
+}
+//获取名字后半部分--歌名
+export function replaceFName(str){
+  let arr = str.split('-');
+  return arr[1];
+}

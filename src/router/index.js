@@ -13,7 +13,7 @@ export default new Router({
     {
       path: '/search',
       name: 'search',
-      component:() =>import('../pages/search/SearchData')
+      component:() =>import('../pages/search/Search')
     },
   ],
   scrollBehavior (to, from, savedPosition) {

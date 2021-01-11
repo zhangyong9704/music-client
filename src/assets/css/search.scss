@@ -2,8 +2,7 @@
 @import "global.scss";
 
 .search{
-  margin: auto;
-  margin-top: $header-height + 20px;
+  margin: $header-height + 20px auto auto;
   background-color: $color-white;
   border-radius: 12px;
   width: 900px;
@@ -12,11 +11,17 @@
 
 .searchList-nav {
   @include layout(space-around);
-  margin-top: 20px;
   font-size: 1.5rem;
-  color: $color-black;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  background-color: $color-black;
+  background-image: linear-gradient(to right, #ffeb3b, #2cb5e8 69%);
+  border-bottom: 2px solid cyan;
   span {
-    line-height: 50px;
+    width: 40%;
+    text-align: center;
+    display: inline-block;
+    line-height: 60px;
     cursor: pointer;
   }
 }
