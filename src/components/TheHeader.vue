@@ -18,8 +18,8 @@
     <!--中间搜索框-->
     <div class="header-middle">
       <div class="header-search">
-        <input type="text" placeholder="搜索..." v-model="keyWords">
-        <div class="search-btn" >
+        <input type="text" placeholder="搜索..." v-model="keyword">
+        <div class="search-btn" @click="goSearch()" >
           <svg class="icon">
             <use xlink:href = "#icon-sousuo"></use>
           </svg>
@@ -54,11 +54,10 @@
     name: 'the-header',
     data(){
       return{
-        keyWords: '',
+        keyword: '',
         leftHaderIndex:-1,  //左侧菜单栏点击获取下标值
         rightHeaderIndex:-1, //右侧菜单栏点击判断
         leftHeaderList: [   //左侧侧边栏内容
-
           {
             icon: 'el-icon-s-home',
             path: '/',
@@ -121,6 +120,21 @@
         }else{
           this.rightHeaderIndex = index;
           this.leftHaderIndex = -1;
+        }
+      },
+
+      //搜索跳转
+      goSearch(){
+        if (this.keyword || this.keyword!==''){
+          this.$router.push({path:'/search',query:{keyword:this.keyword}})
+          this.keyword=''
+        }else{
+          this.$notify({
+            duration: 2000,
+            offset: 70,
+            message: '请输入搜索的关键词',
+            type: 'warning'
+          });
         }
       },
 

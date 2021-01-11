@@ -1,14 +1,23 @@
 <template>
   <div id="app">
+    <the-header></the-header>
     <router-view class="music-content"/>
+    <scroll-top></scroll-top>
+    <the-footer></the-footer>
   </div>
 </template>
 
 <script>
+  import TheHeader from './components/TheHeader'
+  import TheFooter from './components/TheFooter'
+  import ScrollTop from './components/ScrollTop'
 
-export default {
+  export default {
   name: 'App',
   components: {
+    TheHeader,
+    TheFooter,
+    ScrollTop
 
   }
 }

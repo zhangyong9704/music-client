@@ -1,6 +1,5 @@
 <template>
   <div class="wrapper">
-    <the-header></the-header>
     <div class="home">
       <swiper></swiper>
         <div class="section" v-for="(item,index) in indexList" :key="index">
@@ -9,26 +8,21 @@
         </div>
     </div>
     <scroll-top></scroll-top>
-    <the-footer></the-footer>
   </div>
 </template>
 
 <script>
   import Swiper from '../../components/Swiper'
-  import TheHeader from '../../components/TheHeader'
-  import TheFooter from '../../components/TheFooter'
   import ContentList from '../../components/ContentList'
-  import Index from '@/api/index'
   import ScrollTop from '../../components/ScrollTop'
+  import Index from '@/api/index'
 
 export default {
   name: 'home',
   components: {
-    ScrollTop,
     Swiper,
-    TheHeader,
-    TheFooter,
     ContentList,
+    ScrollTop
   },
   data () {
     return {
@@ -36,7 +30,6 @@ export default {
         {name:"歌单",list: [],icon: 'el-icon-s-data'},
         {name:"歌手",list: [],icon: 'el-icon-star-off'}
       ],
-
     }
   },
   created () {

@@ -9,7 +9,12 @@ export default new Router({
       path: '/',
       name: 'home',
       component:() =>import('../pages/index/Home')
-    }
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component:() =>import('../pages/search/SearchData')
+    },
   ],
   scrollBehavior (to, from, savedPosition) {
     return { x: 0, y: 0 }

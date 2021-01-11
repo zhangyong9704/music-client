@@ -3,14 +3,6 @@
   <div class="content-list">
     <ul class="section-content">
       <li class="content-item" v-for="(item,index) in contentList" :key="index">
-<!--        <div class="kuo" >-->
-<!--          <img class="item-img" src="../assets/img/43.jpg" alt="">-->
-<!--          <div class="mask">-->
-<!--            <svg class="icon">-->
-<!--              <use xlink:href="#icon-bofang"></use>-->
-<!--            </svg>-->
-<!--          </div>-->
-<!--        </div>-->
         <el-card :body-style="{ padding: '1px'}">
           <img :src="getImageURL(item.pic)" class="item-img" alt="暂无图片">
           <div class="mask">

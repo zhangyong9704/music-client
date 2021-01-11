@@ -65,6 +65,7 @@
     background-color: $color-light-grey;
     &:focus {
       outline: none;
+      background-color: $color-light-white;
     }
     &:hover {
       background-color: $color-light-white;
