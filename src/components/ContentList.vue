@@ -27,7 +27,7 @@
               </span>
             </span>
             <div class="bottom clearfix">
-              <time class="time">{{(null===item.createTime)?item.createTime:(item.createTime).substring(0,10)}}</time>
+              <time class="time">{{(null===item.createTime)?'':(item.createTime).substring(0,10)}}</time>
               <el-tooltip effect="dark" placement="bottom">
                 <div slot="content" v-html="processingToolTipContent(item.introduction,45)"></div>
                 <el-button type="text" class="button">简介</el-button>

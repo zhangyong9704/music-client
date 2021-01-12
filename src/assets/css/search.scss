@@ -5,7 +5,7 @@
   margin: $header-height + 20px auto auto;
   background-color: $color-white;
   border-radius: 12px;
-  width: 900px;
+  width: 70%;;
   position: relative;
 }
 
@@ -16,17 +16,20 @@
   border-top-right-radius: 12px;
   background-color: $color-black;
   background-image: linear-gradient(to right, #ffeb3b, #2cb5e8 69%);
-  border-bottom: 2px solid cyan;
+  border-bottom: 3px solid cyan;
   span {
-    width: 40%;
+    width: 50%;
     text-align: center;
     display: inline-block;
-    line-height: 60px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    line-height: 63px;
     cursor: pointer;
   }
 }
 
 .isActive {
   font-weight: 600;
-  border-bottom:5px solid $color-black;
+  color: deeppink;
+  background-image: linear-gradient(to right , #e66465, rgb(255, 208, 75));
 }

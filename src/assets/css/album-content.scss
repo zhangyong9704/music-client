@@ -4,9 +4,8 @@
 .content {
   background-color: $color-white;
   border-radius: $border-radius-songlist;
-  padding: 20px 40px;
-  min-width: 700px;
-
+  padding: 5px 40px 20px;
+  min-height: 550px;
   .title {
     text-align: center;
   }
@@ -29,19 +28,38 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center;
   .item-index {
-    width: 5%;
+    width: 10%;
   }
   .item-title {
-    width: 30%;
+    width: 15%;
   }
   .item-name {
-    width: 25%;
+    width: 15%;
+  }
+  .item-time {
+    width: 20%;
   }
   .item-intro {
-    width: 40%;
+    width: 25%;
+  }
+  .item-love {
+    width: 10%;
   }
 }
+
+.item-love .store_before:hover,.play-stop:hover,{
+  color: deeppink;
+}
+
+.item-love .store_love{
+  color: red;
+}
+.item-love .play-start{
+  color: deepskyblue;
+}
+
 
 .is-play {
   color: $color-blue-active;

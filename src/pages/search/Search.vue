@@ -8,7 +8,7 @@
       </span>
     </nav>
     <keep-alive>
-      <component is="search-songs"></component>
+      <component :is="isShow" :keyword="keyword"></component>
     </keep-alive>
   </div>
 
@@ -31,7 +31,7 @@
     data(){
       return{
         keyword: '',
-        target: -1,
+        target: 0,
         isShow:'SearchSongs',
         titleItemList: [
           {title:"歌手", icon: 'el-icon-s-data', tag: 'Songs'},

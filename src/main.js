@@ -8,6 +8,7 @@ import '@/assets/js/iconfont.js'
 import '@/assets/js/iconfont1.js'
 import '@/assets/js/iconfont2.js'
 import '@/assets/js/iconfont3.js'
+import 'font-awesome/css/font-awesome.min.css'
 
 Vue.use(ElementUI)
 
