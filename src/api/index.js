@@ -9,7 +9,10 @@ export default {
   indexTopTenSinger () {
     return request({
       url: `index-front/top-singer`,
-      method: 'get'
+      method: 'get',
+      params:{
+        limit: 10
+      }
     })
   },
 
@@ -17,7 +20,10 @@ export default {
   indexTopTenSongList () {
     return request({
       url: `index-front/top-songList`,
-      method: 'get'
+      method: 'get',
+      params:{
+        limit: 10
+      }
     })
   },
 
@@ -25,7 +31,10 @@ export default {
   getIndexSwiper () {
       return request({
         url: `banner-front/banners`,
-        method: 'get'
+        method: 'get',
+        params:{
+          size: 5
+        }
       })
     },
 
