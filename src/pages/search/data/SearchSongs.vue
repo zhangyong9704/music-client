@@ -18,31 +18,45 @@
                      <span class="item-index">
                          {{index + 1}}
                      </span>
-                <span class="item-title">{{item.name===''?'':(item.name).split('-')[1]}}</span>
-                <span class="item-name">{{item.name===''?'':(item.name).split('-')[0]}}</span>
-                <span class="item-time">{{item.createTime==null?"":(item.createTime).substring(0,10)}}</span>
-                <span class="item-intro">{{''===item.introduction?'暂无数据':item.introduction}}</span>
+                <span class="item-title">{{replaceFName(item.name)}}</span>
+                <span class="item-name">{{replaceLName(item.name)}}</span>
+                <span class="item-time">{{processingDataTimeLength(item.createTime)}}</span>
+                <span class="item-intro">{{processingIntroduction(item.introduction)}}</span>
                 <span class="item-love">
-                  <i :class="index===play_index?play_start:play_stop" aria-hidden="true" @click="togglePlay(index,play_flag)"></i>
+                  <i :class="index===play_index?play_start:play_stop" aria-hidden="true" @click="togglePlay(item,index,play_flag)"></i>
                   <i :class="index===store_index?store_love:store_before" aria-hidden="true" @click="toggleStore(index,store_flag)"></i>
                 </span>
               </div>
             </li>
           </ul>
         </div>
+      <play-audio></play-audio>
     </div>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import Search from '../../../api/search'
+  import PlayAudio from '../../../components/PlayAudio'
+  import PlayBar from '../../../components/PlayBar'
 
   export default {
     name: 'search-songs',
+    components: {
+      PlayBar,
+      PlayAudio
+    },
     props:{
       keyword:{
         type:String,
         required:true
       }
+    },
+    computed :{
+      ...mapGetters({
+        isPlay:'isPlay',
+        playItemIcon:'playItemIcon' //未播放的默认图标(歌单列表后的小图标)
+      }),
     },
     data () {
       return {
@@ -52,10 +66,7 @@
         },
         pageTotal:-1,
         songsList:[],
-        indexList: [
-          {name:"歌单",list: [],icon: 'el-icon-s-data'},
-          {name:"歌手",list: [],icon: 'el-icon-star-off'}
-        ],
+        HOST:this.$store.state.HOST,  //默认地址
         play_stop:'fa fa-play-circle-o fa-lg play-stop', //未播放的默认图标
         play_start:'fa fa-headphones fa-lg play-start',   //正在播放的图标
         play_index:-1,
@@ -68,6 +79,17 @@
     },
     created () {
       this.fetchData();
+    },
+    watch:{
+      isPlay(){   //监听播放按钮图标变化
+        if (this.isPlay){
+          this.$store.commit('setPlayStateIcon', '#icon-bofang');
+          this.$store.commit('setPlayItemIcon', 'fa fa-headphones fa-lg play-start');
+        }else{
+          this.$store.commit('setPlayStateIcon', '#icon-zanting');
+          this.$store.commit('setPlayItemIcon', 'fa fa-play-circle-o fa-lg play-stop');
+        }
+      },
     },
     methods:{
 
@@ -86,14 +108,17 @@
 
 
       //播放图标切换
-      togglePlay(index,flag){
-        this.play_flag = !flag
-        if (this.play_flag){
-          this.play_index = index
-        }else{
+      togglePlay(item,index,play_flag){
+        this.play_flag = !play_flag
+        this.$store.commit('setUrl',this.HOST + item.url);  //拼接歌曲访问地址
+        if (this.isPlay){
           this.play_index = -1
+          this.$store.commit('setPlayItemIcon', 'fa fa-play-circle-o fa-lg play-stop');
+          this.$store.commit('setIsPlay',false);
+        }else{
+          this.play_index = index
+          this.$store.commit('setIsPlay',true);
         }
-
       },
 
       //收藏图标切换
@@ -106,7 +131,21 @@
         }
       },
 
-    }
+
+      //获取链接后准备播放
+      startPlay(){//开始播放
+        document.querySelector('#player').play();
+      },
+      //播放完成之后触发
+      endedPlay(){
+        this.isPlay = false
+      },
+
+    },
+    //切换页面停止播放
+    destroyed() {
+      this.$store.commit('setIsPlay',false);
+    },
   }
 </script>
 

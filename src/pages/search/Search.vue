@@ -1,27 +1,31 @@
 <template>
-  <div class="search">
-    <nav class="searchList-nav" ref="change">
-      <span v-for="(item,index) in titleItemList" :key="index"
-            :class="{isActive:index===target}" @click="handleToggle(index,item.tag)">
-        <i :class="item.icon"></i>
-        {{item.title}}
-      </span>
-    </nav>
-    <keep-alive>
-      <component :is="isShow" :keyword="keyword"></component>
-    </keep-alive>
+  <div>
+    <div class="search">
+      <nav class="searchList-nav" ref="change">
+        <span v-for="(item,index) in titleItemList" :key="index"
+              :class="{isActive:index===target}" @click="handleToggle(index,item.tag)">
+          <i :class="item.icon"></i>
+          {{item.title}}
+        </span>
+      </nav>
+      <keep-alive>
+        <component :is="isShow" :keyword="keyword"></component>
+      </keep-alive>
+    </div>
+    <play-bar></play-bar>
   </div>
-
 </template>
 
 <script>
   import SearchSongs from './data/SearchSongs'
   import SearchSongSheet from './data/SearchSongSheet'
+  import PlayBar from '../../components/PlayBar'
   export default {
     name: 'search',
     components:{
       SearchSongs,
-      SearchSongSheet
+      SearchSongSheet,
+      PlayBar
     },
     created () {
       if (this.$route.query.keyword){
