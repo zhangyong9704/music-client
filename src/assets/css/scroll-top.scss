@@ -7,6 +7,7 @@
   height: 30px;
   right: 10px;
   bottom: 80px;
+  opacity: 0.4;
   padding-top: 20px;
   text-align: center;
   background-color: $color-white;
@@ -14,6 +15,9 @@
   border-radius: 20%;
   overflow: hidden;
   @include box-shadow(0 0 4px 3px rgba(0, 0, 0, 0.2));
+  &:hover{
+    opacity: 1;
+  }
   &:hover:before {
     top: 50%;
   }

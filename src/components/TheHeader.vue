@@ -10,7 +10,7 @@
     <!--左侧浏览的菜单栏-->
     <ul class="navbar">
       <li v-for="(item,index) in leftHeaderList" :key="index"
-          :class="{active:index===leftHaderIndex}" @click="getHeaderIndex(index,'left')">
+          :class="{active:index===leftHaderIndex}" @click="getHeaderIndex(index,'left',item.path)">
         <i :class="item.icon"></i>
         <a>{{item.title}}</a>
       </li>
@@ -29,7 +29,7 @@
     <!--登录注册部分-->
     <ul class="navbar" >
       <li v-for="(item,index) in rightHeaderList" :key="index"
-          :class="{active:index===rightHeaderIndex}" @click="getHeaderIndex(index,'right')">
+          :class="{active:index===rightHeaderIndex}" @click="getHeaderIndex(index,'right',item.path)">
         <i :class="item.icon"></i>
         <a>{{item.title}}</a>
       </li>
@@ -113,13 +113,15 @@
     },
     methods:{
       //显示激活的选项卡
-      getHeaderIndex(index,flag){
+      getHeaderIndex(index,flag,path){
         if ("left"===flag){
           this.leftHaderIndex = index;
           this.rightHeaderIndex = -1;
+          this.$router.push({path:path})
         }else{
           this.rightHeaderIndex = index;
           this.leftHaderIndex = -1;
+          this.$router.push({path:path})
         }
       },
 

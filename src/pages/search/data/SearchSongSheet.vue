@@ -1,5 +1,8 @@
 <template>
     <div class="search-song-lists">
+      <div class="sheet-search-keyword"><span>搜索的关键字:
+        <el-tag size="small" type="primary" >{{keyword}}</el-tag>
+      </span></div>
       <div class="sheet-section-content">
         <div class="sheet-content-item" v-for="(item,index) of songsLists" :key="index">
           <el-card :body-style="{ padding: '1px'}">
@@ -25,11 +28,11 @@
                 <i class="el-icon-s-data">{{item.grade}}</i>
               </span>
             </span>
-              <div class="sheet-bottom clearfix">
+              <div class="sheet-bottom sheet-clearfix">
                 <time class="sheet-time">{{(null===item.createTime)?'':(item.createTime).substring(0,10)}}</time>
-                <el-tooltip effect="dark" placement="sheet-bottom">
+                <el-tooltip effect="dark" placement="bottom">
                   <div slot="content" v-html="processingToolTipContent(item.introduction,45)"></div>
-                  <el-button type="text" class="sheet-bottom">简介</el-button>
+                  <el-button type="text" class="sheet-button">简介</el-button>
                 </el-tooltip>
               </div>
             </div>

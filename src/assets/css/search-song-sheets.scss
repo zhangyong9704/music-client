@@ -3,9 +3,17 @@
 
 .search-song-lists{
   min-height: 300px;
-  margin-top: 50px;
+  margin-top: 15px;
 }
 
+.sheet-search-keyword{
+  font-size: 18px;
+  font-weight: 600;
+  padding-left: 1em;
+  color: #9fb8ad;
+  height: 27px;
+  line-height: 27px;
+}
 
 .sheet-content-list {
   min-height: 500px;
@@ -94,7 +102,7 @@
   line-height: 12px;
 }
 
-.sheet-bottom {
+.sheet-button {
   padding: 0;
   float: right;
 }
