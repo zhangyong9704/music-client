@@ -48,7 +48,7 @@
   position: absolute;
   top: 0;
   background-color: rgba(52, 47, 41, 0.4); /* 浏览器不支持时显示 */
-  background-image: linear-gradient(to right , rgb(244 67 54 / 40%), rgb(255, 208, 75, 25%));
+  background-image: linear-gradient(to right , #f4403466, #ffd04b40);
   transition: all 0.3s ease-in-out;
   opacity: 0;
 }
@@ -65,12 +65,12 @@
   width: 100%;
 }
 
+/*清除浮动，父容器自动适应子容器数量*/
 .clearfix:before,
 .clearfix:after {
   display: table;
   content: "";
 }
-
 .clearfix:after {
   clear: both
 }

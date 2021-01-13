@@ -1,54 +1,49 @@
 <template>
     <div class="search-song-lists">
-      <ul class="section-content">
-        <li class="content-item" v-for="(item,index) in songsLists" :key="index">
+      <div class="sheet-section-content">
+        <div class="sheet-content-item" v-for="(item,index) of songsLists" :key="index">
           <el-card :body-style="{ padding: '1px'}">
-            <img :src="getImageURL(item.pic)" class="item-img" alt="暂无图片">
-            <div class="mask">
-              <svg class="icon">
+            <img :src="getImageURL(item.pic)" class="sheet-item-img" alt="暂无图片">
+            <div class="sheet-mask">
+              <svg class="sheet-icon">
                 <use xlink:href="#icon-bofang"></use>
               </svg>
             </div>
-            <div style="padding: 14px;" class="clearfix">
+            <div style="padding: 14px;" class="sheet-clearfix">
             <span>
               <el-tooltip placement="top">
-                <div slot="content">{{item.name||item.title}}</div>
+                <div slot="content">{{item.title}}</div>
 
                 <el-link type="danger" icon="el-icon-headset">
-                  {{processingFieldLength(item.name||item.title)}}
+                  {{''===item.title?'暂无数据':item.title.length<=10?item.title:item.title.substring(0,7)+"..."}}
                 </el-link>
               </el-tooltip>
               <span>
-                <el-tag size="mini" type="success">{{processingFieldType(item.style || item.sex)}}</el-tag>
+                <el-tag size="mini" type="success">{{item.style}}</el-tag>
               </span>
-              <span class="stars">
+              <span class="sheet-stars">
                 <i class="el-icon-s-data">{{item.grade}}</i>
               </span>
             </span>
-              <div class="bottom clearfix">
-                <time class="time">{{(null===item.createTime)?'':(item.createTime).substring(0,10)}}</time>
-                <el-tooltip effect="dark" placement="bottom">
+              <div class="sheet-bottom clearfix">
+                <time class="sheet-time">{{(null===item.createTime)?'':(item.createTime).substring(0,10)}}</time>
+                <el-tooltip effect="dark" placement="sheet-bottom">
                   <div slot="content" v-html="processingToolTipContent(item.introduction,45)"></div>
-                  <el-button type="text" class="button">简介</el-button>
+                  <el-button type="text" class="sheet-bottom">简介</el-button>
                 </el-tooltip>
               </div>
             </div>
           </el-card>
-        </li>
-      </ul>
-      <content-list :content-list="songsLists" style="{display: block}"></content-list>
+        </div>
+      </div>
     </div>
 </template>
 
 <script>
-  import ContentList from '../../../components/ContentList'
   import Search from '../../../api/search'
 
   export default {
     name: 'search-song-sheets',
-    components:{
-      ContentList,
-    },
     props:{
       keyword:{
         type:String,
@@ -88,7 +83,25 @@
         }else{
           return 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png'
         }
-      }
+      },
+
+      //处理详情介绍自动换行问题
+      processingToolTipContent(title,targetLength){
+        let result ='';
+        if (title){
+          if (title.length<=targetLength){
+            return title;
+          }else{
+            for (let i = 0; i < Math.ceil(title.length/targetLength); i++) {
+              let temp = title.substring(i*targetLength,(i+1)*targetLength);
+              result +=temp + '<br/>';
+            }
+            return result+'<code></code>'
+          }
+        }else {
+          return "正在努力整理中..."
+        }
+      },
 
     }
   }
