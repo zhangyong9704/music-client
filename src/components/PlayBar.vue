@@ -118,11 +118,9 @@
           if (this.isPlay){
             this.$store.commit('setIsPlay',false);
             this.$store.commit('setPlayStateIcon', '#icon-bofang');
-            this.$store.commit('setPlayItemIcon', 'fa fa-headphones fa-lg play-start');
           }else{
             this.$store.commit('setIsPlay',true);
             this.$store.commit('setPlayStateIcon', '#icon-zanting');
-            this.$store.commit('setPlayItemIcon', 'fa fa-play-circle-o fa-lg play-stop');
           }
         }
       }

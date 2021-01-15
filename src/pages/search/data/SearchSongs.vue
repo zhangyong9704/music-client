@@ -85,9 +85,11 @@
         if (this.isPlay){
           this.$store.commit('setPlayStateIcon', '#icon-bofang');
           this.$store.commit('setPlayItemIcon', 'fa fa-headphones fa-lg play-start');
+          this.play_index = this.$store.getters.playingIndex;   //获取播放下标
         }else{
           this.$store.commit('setPlayStateIcon', '#icon-zanting');
           this.$store.commit('setPlayItemIcon', 'fa fa-play-circle-o fa-lg play-stop');
+          this.play_index = -1;
         }
       },
     },
@@ -111,6 +113,8 @@
       togglePlay(item,index,play_flag){
         this.play_flag = !play_flag
         this.$store.commit('setUrl',this.HOST + item.url);  //拼接歌曲访问地址
+        this.$store.commit('setPlayingIndex', index);  //传递当前播放歌曲下标
+        this.$store.commit('setPlaySongsInfo', item);  //传递当前播放歌曲下标
         if (this.isPlay){
           this.play_index = -1
           this.$store.commit('setPlayItemIcon', 'fa fa-play-circle-o fa-lg play-stop');
