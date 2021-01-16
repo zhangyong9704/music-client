@@ -129,7 +129,7 @@
       goSearch(){
         if (this.keyword || this.keyword!==''){
           this.$router.push({path:'/search',query:{keyword:this.keyword}})
-          this.keyword=''
+          //this.keyword=''
         }else{
           this.$notify({
             duration: 2000,

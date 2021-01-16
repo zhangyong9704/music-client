@@ -40,7 +40,7 @@
         top: -($play-bar-height + 50px);
         right: 22px;
       }
-      .show-volume {
+      .displayVolume {
         display: block;
       }
     }
@@ -56,7 +56,7 @@
     .playing-speed {
       // 进度条
       height: 50px;
-      width: 600px;
+      width: 1000px;
       @include layout(center, center);
 
       .current-time,
@@ -87,14 +87,17 @@
               background: $color-blue-active;
             }
           }
-          .idot {
-            width: 16px;
-            height: 16px;
+          .spot {
+            width: 14px;
+            height: 14px;
             position: relative;
             border-radius: 50%;
-            background-color: $color-black;
+            background-color: deeppink;
             top: -11px;
             vertical-align: middle;
+            &:hover{
+              cursor: pointer;
+            }
           }
         }
       }

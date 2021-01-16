@@ -172,11 +172,11 @@ const mixin = {
 
     //获取名字前半部分--歌手名
     replaceLName(singerName){
-      return singerName===''?'':singerName.split('-')[0];
+      return (singerName===''||null===singerName||undefined===singerName)?'':singerName.split('-')[0];
     },
     //获取名字后半部分--歌名
     replaceFName(songName){
-      return songName===''?'':songName.split('-')[1];
+      return (songName===''||null===songName||undefined===songName)?'':songName.split('-')[1];
     },
 
     // 将base64的图片转换为file文件
