@@ -36,15 +36,15 @@
       //播放图标切换
       asideTogglePlay(item,index){
         this.$store.commit('setUrl',this.$store.state.common.HOST + item.url);  //拼接歌曲访问地址
-        this.$store.commit('setPlayingIndex', index+1,);  //传递当前播放歌曲下标(直接传0,图标不进行变动)
-        this.$store.commit('setPlaySongsInfo', item,);  //传递当前播放歌曲信息
+        this.$store.commit('setPlayingIndex', index+1);  //传递当前播放歌曲下标(直接传0,图标不进行变动)
+        this.$store.commit('setPlaySongsInfo', item);  //传递当前播放歌曲信息
         if (this.isPlay){
           this.$store.commit('setPlayItemIcon', 'fa fa-play-circle-o fa-lg play-stop');
           this.$store.commit('setPlayStateIcon', '#icon-bofang');
           this.$store.commit('setIsPlay',false);
         }else{
           this.$store.commit('setPlayStateIcon', '#icon-zanting');
-          this.$store.commit('setIsPlay',true,);
+          this.$store.commit('setIsPlay',true);
         }
       },
     }

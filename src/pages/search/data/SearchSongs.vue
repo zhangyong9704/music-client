@@ -23,7 +23,7 @@
                 <span class="item-time">{{processingDataTimeLength(item.createTime)}}</span>
                 <span class="item-intro">{{processingIntroduction(item.introduction)}}</span>
                 <span class="item-love">
-                  <i :class="index===play_index?play_start:play_stop" aria-hidden="true" @click="togglePlay(item,index,play_flag)"></i>
+                  <i :class="index===play_index?play_start:play_stop" aria-hidden="true" @click="togglePlay(item,index)"></i>
                   <i :class="index===store_index?store_love:store_before" aria-hidden="true" @click="toggleStore(index,store_flag)"></i>
                 </span>
               </div>
@@ -55,7 +55,8 @@
     computed :{
       ...mapGetters({
         isPlay:'isPlay',
-        playItemIcon:'playItemIcon' //未播放的默认图标(歌单列表后的小图标)
+        playItemIcon:'playItemIcon', //未播放的默认图标(歌单列表后的小图标)
+        playingIndex:'playingIndex',    //当前歌曲播放的下标
       }),
     },
     data () {
@@ -70,7 +71,6 @@
         play_stop:'fa fa-play-circle-o fa-lg play-stop', //未播放的默认图标
         play_start:'fa fa-headphones fa-lg play-start',   //正在播放的图标
         play_index:-1,
-        play_flag:false,
         store_before:'fa fa-heart-o fa-lg store_before',   //未收藏的图标
         store_love:'fa fa-heart fa-lg store_love',
         store_index:-1,
@@ -82,16 +82,21 @@
     },
     watch:{
       isPlay(){   //监听播放按钮图标变化
-        if (this.isPlay){
-          this.$store.commit('setPlayStateIcon', '#icon-bofang');
-          this.$store.commit('setPlayItemIcon', 'fa fa-headphones fa-lg play-start');
-          this.play_index = this.$store.getters.playingIndex-1;   //获取播放下标
-        }else{
-          this.$store.commit('setPlayStateIcon', '#icon-zanting');
-          this.$store.commit('setPlayItemIcon', 'fa fa-play-circle-o fa-lg play-stop');
+        if (this.isPlay){   //正在播放
+          // this.$store.commit('setPlayStateIcon', '#icon-zanting');
+          this.play_index = this.playingIndex-1;   //获取播放下标
+        }else{  //未播放
+          // this.$store.commit('setPlayStateIcon', '#icon-bofang'); //设置playbar 图标
           this.play_index = -1;
         }
       },
+      playingIndex(){  //用于上一首、下一首监听，isplay一直会为true,上面监听不起作用
+        if (this.playingIndex!==-1){
+          this.play_index = this.playingIndex-1;   //获取播放下标
+        }else{
+          this.play_index = -1;
+        }
+      }
     },
     methods:{
 
@@ -108,21 +113,19 @@
         })
       },
 
-
-
       //播放图标切换
-      togglePlay(item,index,play_flag){
-        this.play_flag = !play_flag
-        this.$store.commit('setUrl',this.HOST + item.url);  //拼接歌曲访问地址
-        this.$store.commit('setPlayingIndex', index+1,);  //传递当前播放歌曲下标(直接传0,图标不进行变动)
-        this.$store.commit('setPlaySongsInfo', item,);  //传递当前播放歌曲下标
-        if (this.isPlay){
-          this.play_index = -1
+      togglePlay(item,index){
+        if (this.isPlay){  //为true,播放状态，点击后就暂停
+          this.$store.commit('setIsPlay',false);
           this.$store.commit('setPlayItemIcon', 'fa fa-play-circle-o fa-lg play-stop');
-          this.$store.commit('setIsPlay',false,);
+          this.play_index = -1
         }else{
-          this.play_index = index
-          this.$store.commit('setIsPlay',true,{root:true});
+          this.$store.commit('setUrl',this.HOST + item.url);  //拼接歌曲访问地址
+          this.$store.commit('setPlayingIndex', index+1);  //传递当前播放歌曲下标(直接传0,图标不进行变动)
+          this.$store.commit('setPlaySongsInfo', item);  //传递当前播放歌曲下标
+          this.$store.commit('setIsPlay',false);  //先进行暂停
+          this.play_index = index   //激活当前播放的
+          this.$store.commit('setIsPlay',true);
         }
       },
 

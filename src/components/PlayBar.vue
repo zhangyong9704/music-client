@@ -7,7 +7,7 @@
     </div>
     <div class="kongjian">
       <!-- 上一首 -->
-      <div class="item" >
+      <div class="item"  @click="previousSong">
         <svg class="icon">
           <use xlink:href="#icon-ziyuanldpi"></use>
         </svg>
@@ -19,7 +19,7 @@
         </svg>
       </div>
       <!-- 下一首 -->
-      <div class="item" >
+      <div class="item"  @click="nextSong">
         <svg class="icon">
           <use xlink:href="#icon-ziyuanldpi1"></use>
         </svg>
@@ -260,7 +260,6 @@ export default {
 
         //播放歌曲上一首
         previousSong(){
-          let listLength = this.playSongsList.length
           if (this.playSongsList.length<0 && this.playingIndex===-1){  //排除异常情况
             this.$notify({
               duration: 2000,
@@ -270,9 +269,56 @@ export default {
             });
             return false;
           }
+          let prevIndex = -1  //上一首歌曲的下标
+          if((this.playingIndex-1)>0){   //当前播放的下标值(加过1,需要减去)不是第一首歌曲
+            this.$store.commit('setIsPlay',false);
+            prevIndex= (this.playingIndex-1)-1
+          }else{   //等于零或小于时，从末尾播放
+            prevIndex = this.playSongsList.length-1    //长度为3，下标为2
+            this.$store.commit('setIsPlay',false);
+          }
+          this.commonTogglePlay(this.playSongsList[prevIndex],prevIndex);
+        },
+
+        nextSong(){
+          if (this.playSongsList.length<0 && this.playingIndex===-1){  //排除异常情况
+            this.$notify({
+              duration: 2000,
+              offset: 70,
+              message: '获取歌曲列表失败',
+              type: 'warning'
+            });
+            return false;
+          }
+          let nextIndex = -1  //上一首歌曲的下标
+          if((this.playingIndex-1)<(this.playSongsList.length-1)){   //当前播放的下标值(加过1,需要减去)不是第一首歌曲
+            this.$store.commit('setIsPlay',false);
+            nextIndex= (this.playingIndex-1)+1
+          }else{   //等于零或小于时，从末尾播放
+            this.$store.commit('setIsPlay',false);
+            nextIndex = 0    //长度为3，下标为2
+          }
+          this.commonTogglePlay(this.playSongsList[nextIndex],nextIndex);
+        },
 
 
-        }
+        //播放图标切换
+        commonTogglePlay(item,index){
+          this.$store.commit('setUrl',this.$store.state.common.HOST + item.url);  //拼接歌曲访问地址
+          this.$store.commit('setPlayingIndex', index+1);  //传递当前播放歌曲下标(直接传0,图标不进行变动)
+          console.log(index+1)
+          this.$store.commit('setPlaySongsInfo', item);  //传递当前播放歌曲信息
+          if (this.isPlay){
+            this.$store.commit('setIsPlay',false);
+            this.$store.commit('setPlayStateIcon', '#icon-bofang');
+            this.$store.commit('setPlayItemIcon', 'fa fa-play-circle-o fa-lg play-stop');
+          }else{
+            this.$store.commit('setIsPlay',true);
+            this.$store.commit('setPlayStateIcon', '#icon-zanting');
+            this.$store.commit('setPlayItemIcon', 'fa fa-headphones fa-lg play-start');
+          }
+        },
+
 
       }
   }
