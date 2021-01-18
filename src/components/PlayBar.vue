@@ -103,6 +103,8 @@ export default {
         changeTime: 'changeTime',  //指定播放时间
         autoNext: 'autoNext',  //用于自动触发播放下一首
         showAside: 'showAside',  //是否显示播放中的歌曲列表
+        playingIndex: 'playingIndex',  //正在播放歌曲的下标值
+        playSongsList:'playSongsList'  //所有歌曲列表
       })
     },
     watch:{
@@ -126,7 +128,7 @@ export default {
       return {
         toggle: true,            //显示隐藏播放器页面
         nowTime: '00:00',        //当前播放进度的时间
-        songTotalTime: '00:00',       //当前歌曲总时间
+        songTotalTime: '00:00',  //当前歌曲总时间
         currentPoint: 0,         //进度条原点的位置
         progressLength: 0,       //进度条的总长度
         mouseStartX:    0,       //鼠标拖拽开始位置
@@ -255,6 +257,22 @@ export default {
             this.$store.commit('setShowAside',false);
           }
         },
+
+        //播放歌曲上一首
+        previousSong(){
+          let listLength = this.playSongsList.length
+          if (this.playSongsList.length<0 && this.playingIndex===-1){  //排除异常情况
+            this.$notify({
+              duration: 2000,
+              offset: 70,
+              message: '获取歌曲列表失败',
+              type: 'warning'
+            });
+            return false;
+          }
+
+
+        }
 
       }
   }

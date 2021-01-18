@@ -5,7 +5,7 @@ const song = {
       isPlay: false, //是否播放歌曲
       playStateIcon: '#icon-bofang',   //播放状态的图标
       playItemIcon:'fa fa-play-circle-o fa-lg play-stop', //未播放的默认图标(歌单列表后的小图标)
-      playingIndex: -1,  //搜索歌单点击小图标的歌曲下标值
+      playingIndex: -1,  //搜索歌单点击小图标的歌曲下标值(正在播放的)
       playSongsInfo: {}, //点击搜索单个歌曲传递的信息
       playSongsList: [], //点击歌曲列表传递的信息
       duration: 0,  //音乐时长
