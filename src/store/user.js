@@ -1,7 +1,7 @@
 const user = {
-  state:{
+  state:()=>({
 
-  }
+  })
 
 }
 

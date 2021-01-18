@@ -11,6 +11,7 @@
   import TheHeader from './components/TheHeader'
   import TheFooter from './components/TheFooter'
   import ScrollTop from './components/ScrollTop'
+  import TheAside from './components/TheAside'
 
   export default {
   name: 'App',

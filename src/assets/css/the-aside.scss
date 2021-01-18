@@ -11,7 +11,7 @@
 
 .slide-fade-enter, .slide-fade-leave-to {
   transform: translateX(10px);
-  opacity: 0;
+  opacity: 0.3;
 }
 
 .the-aside {
@@ -20,13 +20,12 @@
   height: 370px;
   position: fixed;
   right: 0;
-  top: 150px;
+  bottom: 75px;
   z-index: 99;
   background-color: $color-white;
   @include box-shadow(1px 1px 10px rgba(0, 0, 0, 0.4));
   border: 1px solid rgba(0, 0, 0, 0.5);
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+  border-radius: 6px;
   overflow: hidden;
 }
 
@@ -42,8 +41,10 @@
   height: calc(100% - 19px);
   cursor: pointer;
   z-index: 100;
-  overflow: scroll;
+  overflow: auto;
   white-space: nowrap;
+  text-overflow:ellipsis;
+  ellipse,
   li {
     display: block;
     width: 100%;

@@ -47,7 +47,6 @@
       handleToggle(index,tag){
         this.target = index
         this.isShow = "Search"+tag;
-        console.log(this.isShow)
       }
     }
   }

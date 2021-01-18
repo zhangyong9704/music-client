@@ -1,7 +1,7 @@
 const song = {
-    state:{
+    state:()=>({
       url:'',  //歌曲播放地址
-      id:'',  //歌曲id
+      id:-1,  //歌曲id
       isPlay: false, //是否播放歌曲
       playStateIcon: '#icon-bofang',   //播放状态的图标
       playItemIcon:'fa fa-play-circle-o fa-lg play-stop', //未播放的默认图标(歌单列表后的小图标)
@@ -14,7 +14,7 @@ const song = {
       autoNext: true,  //用于自动触发播放下一首
       currentIndex: null, //当前歌曲在歌单中的位置
       volume: 50   //音量
-    },
+    }),
     mutations: {   //设置设值方式
       setIsPlay(state,isPlay){
         state.isPlay = isPlay
@@ -23,7 +23,11 @@ const song = {
         state.url = url
       },
       setId(state, id){
-        state.id = id
+        if (state.playSongsInfo.id){
+          state.id = state.playSongsInfo.id
+        }else{
+          state.id = id || -1
+        }
       },
       setPlayStateIcon(state,playStateIcon){
         state.playStateIcon = playStateIcon
@@ -62,7 +66,7 @@ const song = {
     getters: {   //设置获取方式
       isPlay:(state) => state.isPlay || null,
       url:(state) =>state.url || null,
-      id:(state)=>state.id||null,
+      id:(state)=> state.playSongsInfo.id||null,
       playStateIcon:(state)=>state.playStateIcon||'#icon-bofang',
       playItemIcon:(state)=>state.playItemIcon||'fa fa-play-circle-o fa-lg play-stop',
       playingIndex:(state)=>state.playingIndex|| -1,  //播放下标

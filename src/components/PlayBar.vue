@@ -56,7 +56,7 @@
           <svg v-else class="icon">
             <use xlink:href="#icon-yinliang1"></use>
           </svg>
-          <el-slider class="volume" :class="{displayVolume:isShowVolume}" v-model="volume" :vertical="true" ></el-slider>
+          <el-slider id="vol" class="volume" :class="{displayVolume:isShowVolume}" v-model="volume" :vertical="true" ></el-slider>
         </div>
         <!-- 收藏 -->
         <div class="item" >
@@ -71,12 +71,14 @@
           </svg>
         </div>
         <!-- 当前播放的歌曲列表 -->
-        <div class="item">
+        <div class="item"  @click="changeAside">
           <svg class="icon">
             <use xlink:href="#icon-liebiao"></use>
           </svg>
         </div>
       </div>
+      <!--传递查询后的所有歌曲信息-->
+      <the-aside :aside-content-list="asideSongList"></the-aside>
     </div>
   </div>
 
@@ -84,9 +86,13 @@
 
 <script>
   import {mapGetters} from 'vuex'
+  import TheAside from './TheAside'
 
 export default {
     name: 'play-bar',
+    components:{
+      TheAside,
+    },
     computed : {
       ...mapGetters({
         isPlay: 'isPlay',
@@ -96,6 +102,7 @@ export default {
         currentTime: 'currentTime',  //当前音乐的播放位置
         changeTime: 'changeTime',  //指定播放时间
         autoNext: 'autoNext',  //用于自动触发播放下一首
+        showAside: 'showAside',  //是否显示播放中的歌曲列表
       })
     },
     watch:{
@@ -125,7 +132,8 @@ export default {
         mouseStartX:    0,       //鼠标拖拽开始位置
         isDrag: false,           //拖拽开始结束的标志，当开始拖拽，它的值才会变成true
         volume: 20,             //音量，默认20
-        isShowVolume: false,
+        isShowVolume: false,    //显示音量
+        asideSongList: [],      //保存浮动歌曲列表的信息
       }
     },
     mounted () {
@@ -135,17 +143,17 @@ export default {
         e.stopPropagation();
       },false);
       document.addEventListener('click',function(){   //点击页面其他地方，音量消失
-        document.querySelector('.volume').classList.remove('displayVolume');
+        if (document.getElementById('vol').classList.contains('displayVolume')){
+          document.querySelector('.volume').classList.remove('displayVolume');
+        }
       },false);
       //音量显示结束
     },
     methods: {
-
         //控制播放
         togglePlayBar () {
           if (this.isPlay){
             this.$store.commit('setIsPlay',false);
-            console.log(this.$store.getter.song.isPlay)
             this.$store.commit('setPlayStateIcon', '#icon-bofang');
           }else{
             this.$store.commit('setIsPlay',true);
@@ -227,6 +235,25 @@ export default {
         //更改歌曲进度
         changeSongPlayTime(percent){  //percent*0.01  算的是当前播放位置占总播放条的百分比，乘以歌曲总长度=播放歌曲的百分比时间位置
           this.$store.commit('setChangeTime',(percent*0.01)* this.duration);
+        },
+
+        //显示播放中的歌曲列表
+        changeAside(){
+          if (!this.showAside){
+            if (this.$store.state.song.playSongsList){
+              this.asideSongList = this.$store.state.song.playSongsList;
+            }else{
+              this.$notify({
+                duration: 2000,
+                offset: 70,
+                message: '获取列表失败',
+                type: 'warning'
+              });
+            }
+            this.$store.commit('setShowAside',true);
+          }else{
+            this.$store.commit('setShowAside',false);
+          }
         },
 
       }
