@@ -1,4 +1,3 @@
-
 const song = {
     state:{
       url:'',  //歌曲播放地址
@@ -18,46 +17,46 @@ const song = {
     },
     mutations: {   //设置设值方式
       setIsPlay(state,isPlay){
-        this.state.isPlay = isPlay
+        state.isPlay = isPlay
       },
       setUrl(state, url){
-        this.state.url = url
+        state.url = url
       },
       setId(state, id){
-        this.state.id = id
+        state.id = id
       },
       setPlayStateIcon(state,playStateIcon){
-        this.state.playStateIcon = playStateIcon
+        state.playStateIcon = playStateIcon
       },
       setPlayItemIcon(state,playItemIcon){
-        this.state.playItemIcon = playItemIcon
+        state.playItemIcon = playItemIcon
       },
       setPlayingIndex(state,playingIndex){
-        this.state.playingIndex = playingIndex
+        state.playingIndex = playingIndex
       },
       setPlaySongsInfo(state,playSongsInfo){
-        this.state.playSongsInfo = playSongsInfo
+        state.playSongsInfo = playSongsInfo
       },
       setPlaySongsList(state,playSongsList){
-        this.state.playSongsList = playSongsList
+        state.playSongsList = playSongsList
       },
       setDuration(state,duration){
-        this.state.duration = duration  //音乐时长
+        state.duration = duration  //音乐时长
       },
       setCurrentTime(state,currentTime){
-        this.state.currentTime = currentTime //当前音乐的播放位置
+        state.currentTime = currentTime //当前音乐的播放位置
       },
       setChangeTime(state,changeTime){
-        this.state.changeTime = changeTime //指定播放时间
+        state.changeTime = changeTime //指定播放时间
       },
       setAutoNext(state,autoNext){
-        this.state.autoNext = autoNext //用于自动触发播放下一首
+        state.autoNext = autoNext //用于自动触发播放下一首
       },
       setCurrentIndex(state,currentIndex){
-        this.state.currentIndex = currentIndex //当前歌曲在歌单中的位置
+        state.currentIndex = currentIndex //当前歌曲在歌单中的位置
       },
       setVolume(state,volume){
-        this.state.volume = volume //音量
+        state.volume = volume //音量
       },
     },
     getters: {   //设置获取方式

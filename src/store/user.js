@@ -1,4 +1,7 @@
 const user = {
+  state:{
+
+  }
 
 }
 

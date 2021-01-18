@@ -7,10 +7,13 @@ import song from './song'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
+    state:{
+
+    },
     modules: {
       common,
       user,
-      song
+      song,
     }
 })
 

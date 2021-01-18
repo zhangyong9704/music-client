@@ -66,7 +66,7 @@
         },
         pageTotal:-1,
         songsList:[],
-        HOST:this.$store.state.HOST,  //默认地址
+        HOST:this.$store.state.common.HOST,  //默认地址
         play_stop:'fa fa-play-circle-o fa-lg play-stop', //未播放的默认图标
         play_start:'fa fa-headphones fa-lg play-start',   //正在播放的图标
         play_index:-1,
@@ -113,15 +113,15 @@
       togglePlay(item,index,play_flag){
         this.play_flag = !play_flag
         this.$store.commit('setUrl',this.HOST + item.url);  //拼接歌曲访问地址
-        this.$store.commit('setPlayingIndex', index);  //传递当前播放歌曲下标
-        this.$store.commit('setPlaySongsInfo', item);  //传递当前播放歌曲下标
+        this.$store.commit('setPlayingIndex', index,);  //传递当前播放歌曲下标
+        this.$store.commit('setPlaySongsInfo', item,);  //传递当前播放歌曲下标
         if (this.isPlay){
           this.play_index = -1
           this.$store.commit('setPlayItemIcon', 'fa fa-play-circle-o fa-lg play-stop');
-          this.$store.commit('setIsPlay',false);
+          this.$store.commit('setIsPlay',false,);
         }else{
           this.play_index = index
-          this.$store.commit('setIsPlay',true);
+          this.$store.commit('setIsPlay',true,{root:true});
         }
       },
 

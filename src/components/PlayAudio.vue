@@ -14,7 +14,7 @@
         name: 'play-audio',
         data() {
             return {
-                isPlaying : this.$store.state.isPlay
+                isPlaying : this.$store.state.song.isPlay
             }
         },
         computed: {   //加载获取store中的值

@@ -145,6 +145,7 @@ export default {
         togglePlayBar () {
           if (this.isPlay){
             this.$store.commit('setIsPlay',false);
+            console.log(this.$store.getter.song.isPlay)
             this.$store.commit('setPlayStateIcon', '#icon-bofang');
           }else{
             this.$store.commit('setIsPlay',true);
