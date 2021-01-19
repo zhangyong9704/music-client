@@ -30,21 +30,18 @@
             </li>
           </ul>
         </div>
-      <play-audio></play-audio>
     </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
   import Search from '../../../api/search'
-  import PlayAudio from '../../../components/PlayAudio'
   import PlayBar from '../../../components/PlayBar'
 
   export default {
     name: 'search-songs',
     components: {
       PlayBar,
-      PlayAudio,
     },
     props:{
       keyword:{

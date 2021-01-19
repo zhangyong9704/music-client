@@ -49,7 +49,14 @@
       width: $play-bar-height;
       height: $play-bar-height;
       img {
+        display: block;
+        border-radius: $header-user-radius;
+        animation: rotate 10s linear infinite; /*图片旋转*/
         width: 100%;
+        &:hover{
+          cursor: pointer;
+          animation: normal;
+        }
       }
     }
 

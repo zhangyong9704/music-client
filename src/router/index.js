@@ -6,14 +6,19 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/',   //主页路径
       name: 'home',
       component:() =>import('../pages/index/Home')
     },
     {
-      path: '/search',
+      path: '/search',   //搜索结果
       name: 'search',
       component:() =>import('../pages/search/Search')
+    },
+    {
+      path: '/lyric',  //歌词
+      name: 'lyric',
+      component:() =>import('../pages/lyric/Lyric')
     },
   ],
   scrollBehavior (to, from, savedPosition) {

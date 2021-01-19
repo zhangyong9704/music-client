@@ -12,11 +12,6 @@
     import { mapGetters } from 'vuex'
     export default {
         name: 'play-audio',
-        data() {
-            return {
-                isPlaying : this.$store.state.song.isPlay
-            }
-        },
         computed: {   //加载获取store中的值
             ...mapGetters({
                 id: 'id',
@@ -47,14 +42,14 @@
         methods:{
             //获取链接后准备播放
             startPlay(){//开始播放
-              let playPromise = this.$refs.player.play()
+              let playPromise = this.$refs.player.play();
               if (playPromise !== undefined) {
                 this.$store.commit('setDuration', this.$refs.player.duration);  //设置的音乐时长
                 playPromise.then(() => { // 音频加载成功
                   // 音频的播放需要耗时
-                  setInterval(() => {
+                  setTimeout(() => {
                     // 后续操作
-                    playPromise.play()
+                    this.$refs.player.play()
                   }, this.$refs.player.duration * 1000); // audio.duration 为音频的时长单位为秒
                 }).catch((error)=> {
                   console.log("Operation is too fast, audio play fails:"+error)
@@ -63,10 +58,9 @@
             },
             //播放完成之后触发
             endedPlay(){
-                this.isPlay = false
-                this.$store.commit('setIsPlay',false);
-                this.$store.commit('setCurrentTime',0);
-                this.$store.commit('setAutoNext',!this.autoNext);
+              this.$store.commit('setCurrentTime',0);
+              this.$store.commit('setAutoNext',!this.autoNext);
+              this.$store.commit('setIsPlay',false);
             },
             //开始、暂停
             togglePlay() {
@@ -80,7 +74,11 @@
 
             //音乐播放时记录音乐的播放位置
             timeUpdate(){
-              this.$store.commit('setCurrentTime',this.$refs.player.currentTime);
+              if (this.isPlay){
+                this.$store.commit('setCurrentTime',this.$refs.player.currentTime);
+              }else{
+                this.$store.commit('setCurrentTime',0);
+              }
             }
         }
     };
@@ -89,6 +87,6 @@
 <style>
     /*不显示默认播放器样式*/
     .song-audio {
-        display: inline;
+        display: none;
     }
 </style>

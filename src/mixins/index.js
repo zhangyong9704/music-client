@@ -8,59 +8,7 @@ const mixin = {
   //   ])
   // },
   methods: {
-    //提示信息
-    notify(title,type) {
-      this.$notify({
-        title: title,
-        type: type
-      })
-    },
 
-    //获取图片地址
-    attachImageUrl (srcUrl) {
-      return srcUrl? this.$store.state.configure.HOST+srcUrl : this.$store.state.configure.HOST+'/img/user.jpg';
-    },
-    //根据歌手名字模糊查询歌曲
-    getSong() {
-      if(!this.$route.query.keywords){
-        this.$store.commit('setListOfSongs',[]);
-        this.notify('您输入的内容为空','warning');
-      }else{
-        likeSongOfName(this.$route.query.keywords).then(res => {
-          if(!res.length){
-            this.$store.commit('setListOfSongs',[]);
-            this.notify('系统暂无符合条件的歌曲','warning');
-          }else{
-            this.$store.commit('setListOfSongs',res);
-          }
-        }).catch(err => {
-          console.log(err)
-        })
-      }
-    },
-
-    //播放
-    toPlay: function(id,url,pic,index,name,lyric){
-      this.$store.commit('setId',id);
-      this.$store.commit('setUrl',this.$store.state.configure.HOST+url);
-      this.$store.commit('setPicUrl',this.$store.state.configure.HOST+pic);
-      this.$store.commit('setListIndex',index);
-      this.$store.commit('setTitle',this.replaceFName(name));
-      this.$store.commit('setArtist',this.replaceLName(name));
-      this.$store.commit('setLyric',this.parseLyric(lyric));
-      this.$store.commit('setIsActive',false);
-      if(this.loginIn){
-        getCollectOfUserId(this.userId)
-          .then(res =>{
-            for(let item of res){
-              if(item.songId == id){
-                this.$store.commit('setIsActive',true);
-                break;
-              }
-            }
-          })
-      }
-    },
     //解析歌词
     parseLyric(text){
       let lines = text.split("\n");                   //将歌词按行分解成数组
@@ -80,7 +28,7 @@ const mixin = {
         let value = item.replace(pattern,'');//存后面的歌词
         for(let item1 of time){
           let t = item1.slice(1,-1).split(":");   //取出时间，换算成数组
-          if(value!=''){
+          if(value!==''){
             result.push([parseInt(t[0],10)*60 + parseFloat(t[1]),value]);
           }
         }
@@ -91,9 +39,38 @@ const mixin = {
       });
       return result;
     },
-    //获取生日
-    attachBirth(val){
-      return val.substr(0,10);
+
+
+    //解析歌词
+    analysisOfLyrics(text){ //[00:03.00]听妈妈的话 - 周杰伦
+      let lyric = text.split('\n'); //先按行分割
+      let patternTime = /\[\d{2}:\d{2}.(\d{3}|\d{2})\]/g; //时间格式的正则表达式[]
+      let regExp = /\[\d{2}:\d{2}(([.:])\d{2})\]/g;
+      let result = [];                                //返回值,新建一个数组存放最后结果
+      if (lyric.length===0){   //没有歌词
+        return result.push([0,'暂无歌词']);
+      }
+      if (!(/\[.+\]/).test(text)){  //格式不正确，当前歌词前缀没有[]格式，即认为是不正确的信息
+        return [[0,text]]
+      }
+      for(let item of lyric) { //遍历每一行，形成每行带有以秒为计算单位的时间：(歌词)文本的数组格式
+        let prveTime = item.match(regExp); //正则匹配播放时间返回一个数组
+        let lrcText = item.replace(regExp,""); //获得该行歌词正文 将[]替换成''后，直接剩余文本内容
+        //过滤掉空行等非歌词正文部分
+        if(prveTime != null) { //可能有多个时间标签对应一句歌词的情况，用一个循环解决
+          for(let timeItem of prveTime){
+            let min = Number(String(timeItem.match(/\[\d{2}/i)).slice(1));
+            let sec = parseFloat(String(timeItem.match(/\d{2}\.\d{2}/i)));
+            let time = Math.round((min * 60 + sec)*100)/100;  //换算时间，保留两位小数
+            result.push([time,lrcText]);   //把时间和对应的歌词保存到数组多个值也对应一样的文本值
+          }
+        }
+      }
+      //重新按时间(秒，换算后的结果)排序
+      result.sort(function(a,b){
+        return a[0]-b[0];
+      });
+      return result;
     },
 /*==================================================================================*/
     //判断性别类型

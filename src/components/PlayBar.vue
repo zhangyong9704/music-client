@@ -25,7 +25,7 @@
         </svg>
       </div>
       <!-- 歌曲图片 -->
-      <div class="item-img" >
+      <div class="item-img"  @click="toLyric">
         <img :src="getImageURL(playSongsInfo.pic)" alt=""/>
       </div>
       <!-- 播放进度 -->
@@ -80,6 +80,7 @@
       <!--传递查询后的所有歌曲信息-->
       <the-aside :aside-content-list="asideSongList"></the-aside>
     </div>
+    <play-audio></play-audio>
   </div>
 
 </template>
@@ -87,11 +88,13 @@
 <script>
   import {mapGetters} from 'vuex'
   import TheAside from './TheAside'
+  import PlayAudio from './PlayAudio'
 
 export default {
     name: 'play-bar',
     components:{
       TheAside,
+      PlayAudio,
     },
     computed : {
       ...mapGetters({
@@ -104,7 +107,7 @@ export default {
         autoNext: 'autoNext',  //用于自动触发播放下一首
         showAside: 'showAside',  //是否显示播放中的歌曲列表
         playingIndex: 'playingIndex',  //正在播放歌曲的下标值
-        playSongsList:'playSongsList'  //所有歌曲列表
+        playSongsList:'playSongsList',  //所有歌曲列表
       })
     },
     watch:{
@@ -122,6 +125,9 @@ export default {
       },
       volume(){  //监听音量变化
         this.$store.commit('setVolume', this.volume/100);
+      },
+      autoNext(){  //歌曲播放完成，在playAudio中会变更autoNext值
+        this.autoPlayNext();
       }
     },
     data () {
@@ -136,6 +142,7 @@ export default {
         volume: 20,             //音量，默认20
         isShowVolume: false,    //显示音量
         asideSongList: [],      //保存浮动歌曲列表的信息
+        lyricArray:[],
       }
     },
     mounted () {
@@ -280,6 +287,7 @@ export default {
           this.commonTogglePlay(this.playSongsList[prevIndex],prevIndex);
         },
 
+        //播放下一首歌曲
         nextSong(){
           if (this.playSongsList.length<0 && this.playingIndex===-1){  //排除异常情况
             this.$notify({
@@ -301,6 +309,10 @@ export default {
           this.commonTogglePlay(this.playSongsList[nextIndex],nextIndex);
         },
 
+        //自动播放下一首(watch用于监听)
+        autoPlayNext(){
+          this.nextSong()
+        },
 
         //播放图标切换
         commonTogglePlay(item,index){
@@ -319,7 +331,10 @@ export default {
           }
         },
 
-
+        //点击图片跳转显示歌词
+        toLyric(){
+          this.$router.push({path:'/lyric'})
+        }
       }
   }
 </script>

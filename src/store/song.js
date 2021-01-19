@@ -64,7 +64,7 @@ const song = {
       },
     },
     getters: {   //设置获取方式
-      isPlay:(state) => state.isPlay || null,
+      isPlay:(state) => state.isPlay || false,
       url:(state) =>state.url || null,
       id:(state)=> state.playSongsInfo.id||null,
       playStateIcon:(state)=>state.playStateIcon||'#icon-bofang',
@@ -75,7 +75,7 @@ const song = {
       duration:(state)=>state.duration  || 0,  //音乐时长
       currentTime:(state)=>state.currentTime  || 0,  //当前音乐的播放位置
       changeTime: (state)=>state.changeTime  || 0,  //指定播放时间
-      autoNext: (state)=>state.autoNext  || true,  //用于自动触发播放下一首
+      autoNext: (state)=>state.autoNext  || false,  //用于自动触发播放下一首
       currentIndex: (state)=>state.currentIndex  || -1, //当前歌曲在歌单中的位置
       volume: (state)=>state.volume  || 20   //音量
     },

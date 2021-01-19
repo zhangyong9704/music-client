@@ -3,6 +3,7 @@
     <the-header></the-header>
     <router-view class="music-content"/>
     <scroll-top></scroll-top>
+    <play-bar></play-bar>
     <the-footer></the-footer>
   </div>
 </template>
@@ -12,13 +13,15 @@
   import TheFooter from './components/TheFooter'
   import ScrollTop from './components/ScrollTop'
   import TheAside from './components/TheAside'
+  import PlayBar from './components/PlayBar'
 
   export default {
   name: 'App',
   components: {
     TheHeader,
     TheFooter,
-    ScrollTop
+    ScrollTop,
+    PlayBar
   }
 }
 </script>
