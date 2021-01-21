@@ -1,12 +1,15 @@
 <template>
   <div class="song-lyric">
     <h1 class="lyric-title">{{title}}</h1>
-    <!-- 有歌词 -->
-    <ul ref="lyricUl" class="has-lyric" v-if="lyric.length" >
-      <li v-for="(item,index) of lyric" :key="index">
-        {{item[1]}}
-      </li>
-    </ul>
+    <div v-if="lyric.length" >
+      <!--todo 滚动界面CSS设置-->
+      <!-- 有歌词 -->
+      <ul ref="lyricUl" class="has-lyric" >
+        <li v-for="(item,index) of lyric" :key="index">
+          {{item[1]}}
+        </li>
+      </ul>
+    </div>
     <!-- 没有歌词 -->
     <div v-else class="no-lyric" >
       <span>暂无歌词</span>
@@ -62,17 +65,14 @@
             if(this.currentTime>=this.lyric[i][0]){    //当前匹配时间于数组时间一致
               for(let j=0;j<this.lyric.length;j++){    //所有未选中的样式
                 document.querySelectorAll('.has-lyric li')[j].style.color = '#000';
-                document.querySelectorAll('.has-lyric li')[j].style.fontSize = '15px';
+                document.querySelectorAll('.has-lyric li')[j].style.fontSize = '19px';
               }
               if(i>=0){  //当前选中的行
                 if (i>this.C_pos){  //当前li向上偏移
-                  this.$refs.lyricUl.style.transform = "translateY("+(i-this.C_pos)*this.offset+"px)";  //整体向上滚动一行高度
-                  // document.getElementsByTagName("li")[i].style.transform = "translateY("+(i-this.C_pos)*this.offset+"px)";
-                  document.querySelectorAll('.has-lyric li')[i].style.color = '#95d2f6';
-                  document.querySelectorAll('.has-lyric li')[i].style.fontSize = '25px';
+                  // this.$refs.lyricUl.style.transform = "translateY("+(i-this.C_pos)*this.offset+"px)";  //整体向上滚动一行高度
+                  document.querySelectorAll('.has-lyric li')[i].style.fontSize = '30px';
                 }else{
-                  document.querySelectorAll('.has-lyric li')[i].style.color = '#95d2f6';
-                  document.querySelectorAll('.has-lyric li')[i].style.fontSize = '25px';
+                  document.querySelectorAll('.has-lyric li')[i].style.fontSize = '30px';
                 }
 
               }
