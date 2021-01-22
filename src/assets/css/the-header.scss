@@ -11,6 +11,7 @@
   margin: $header-margin;
   background-color: $header-background-color;
   background-image: $header-background-image;
+  backdrop-filter: blur(100);
   @include box-shadow($box-shadow);
   box-sizing: border-box;
   z-index: 100;
@@ -23,7 +24,8 @@
   white-space: nowrap;
   cursor: pointer;
   .icon {
-    @include icon(($header-height / 3) * 2, $color-black);
+    //@include icon(($header-height / 3) * 2, $color-black);
+    width: 120px;
     vertical-align: middle;
   }
 }

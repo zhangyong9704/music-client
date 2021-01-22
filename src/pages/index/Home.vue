@@ -44,7 +44,7 @@ export default {
         }
       }))
       .catch((reason => {
-        this.message(reason.message)
+        this.$message.error(reason.message);
       }))
     },
 
@@ -55,7 +55,7 @@ export default {
         }
       }))
         .catch((reason => {
-        this.message(reason.message)
+          this.$message.error(reason.message);
       }))
 
     }

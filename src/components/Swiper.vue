@@ -20,7 +20,7 @@ export default {
     return {
       // 图片列表swipe
       swiperList : [],
-      baseURL: 'http://127.0.0.1:8088'
+      baseURL: this.$store.state.common.HOST
     }
   },
   methods:{

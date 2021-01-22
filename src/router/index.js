@@ -20,6 +20,16 @@ export default new Router({
       name: 'lyric',
       component:() =>import('../pages/lyric/Lyric')
     },
+    {
+      path: '/login',  //登录
+      name: 'login',
+      component:() =>import('../pages/login/Login')
+    },
+    {
+      path: '/register',  //注册
+      name: 'register',
+      component:() =>import('../pages/register/Register')
+    },
   ],
   scrollBehavior (to, from, savedPosition) {
     return { x: 0, y: 0 }

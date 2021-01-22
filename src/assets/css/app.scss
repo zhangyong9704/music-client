@@ -4,6 +4,7 @@
 #app {
   background-color: $theme-background-color;
   opacity: 0.8;
+  background-image:linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5));
   @include layout(flex-start, stretch, column);
 }
 

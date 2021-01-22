@@ -18,7 +18,7 @@
       window.addEventListener("scroll", this.handleScroll);
     },
     methods:{
-      handleScroll() {
+      handleScroll() {      //下拉一定距离后显示
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
         if (scrollTop > 350) {
           this.navTab = true;

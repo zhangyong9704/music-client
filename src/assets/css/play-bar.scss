@@ -6,6 +6,7 @@
   bottom: 0;
   width: 100%;
   transition: all 0.5s;
+
   @include box-shadow($box-shadow);
 
   .item-up {
@@ -21,7 +22,9 @@
     height: $play-bar-height;
     width: 100%;
     min-width: 1000px;
-    background-color: $theme-play-bar-color;
+    //background-color: $theme-play-bar-color;
+    background: linear-gradient(to right,#6cdbeb,#1fc8db,#ffeb3b);
+    backdrop-filter: blur(100);
 
     .item {
       position: relative;

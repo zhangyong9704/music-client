@@ -4,7 +4,8 @@
   margin: $header-height + 20px auto auto;
   width: 900px;
   background-color: $color-white;
-  background-image:linear-gradient(to right, #1fc8db57,#0000001f, #1fc8db57);
+  background-image:linear-gradient(to right, #65dfc9,#ecf5ff, #6cdbeb);
+  backdrop-filter: blur(150);
   border-radius: 15px;
   padding: 0 20px 50px 20px;
   font-family: $font-family;

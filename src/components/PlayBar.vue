@@ -65,7 +65,7 @@
           </svg>
         </div>
         <!-- 下载 -->
-        <div class="item" >
+        <div class="item" @click="download">
           <svg class="icon">
             <use xlink:href="#icon-xiazai"></use>
           </svg>
@@ -89,6 +89,7 @@
   import {mapGetters} from 'vuex'
   import TheAside from './TheAside'
   import PlayAudio from './PlayAudio'
+  import Song from '../api/song'
 
 export default {
     name: 'play-bar',
@@ -334,6 +335,39 @@ export default {
         //点击图片跳转显示歌词
         toLyric(){
           this.$router.push({path:'/lyric'})
+        },
+
+
+        //下载歌曲
+        download(){
+          let singleSongInfo = this.$store.state.song.playSongsInfo;
+          let secSingleSongInfo = this.playSongsList[this.playingIndex-1]
+          if (singleSongInfo==null || secSingleSongInfo==null){
+            this.$notify({
+              duration: 2000,
+              offset: 70,
+              message: '获取下载歌曲信息失败',
+              type: 'warning'
+            });
+            return false;
+          }
+          if (singleSongInfo.id === singleSongInfo.id){   //确定当前歌曲播放的信息是一致的
+            Song.downloadSongs(singleSongInfo.url, singleSongInfo.name).then((result => {
+                let blob = new Blob([result]);    //接收返回的数据
+                let eleLink = document.createElement('a');    //创建下载a标签
+                eleLink.download = `${singleSongInfo.name}.mp3`;  //添加download属性
+                eleLink.style.display = 'none';   //隐藏a标签你
+                eleLink.href = window.URL.createObjectURL(blob); // //把字符内容转换成blob地址
+                document.body.appendChild(eleLink); //把链接地址加到document里
+                eleLink.click(); //触发点击下载
+                window.URL.revokeObjectURL(eleLink.href)  //释放URL
+                document.body.removeChild(eleLink); //移除新加的控件
+                this.$message.success('下载成功');
+            }))
+              .catch((reason => {
+                this.$message.error('数据异常，下载失败');
+              }))
+          }
         }
       }
   }

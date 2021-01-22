@@ -2,10 +2,11 @@
   <div class="the-header">
     <!--左侧logo图标-->
     <div class="header-logo" >
-      <svg class="icon">
-        <use xlink:href = "#icon-erji"></use>
-      </svg>
-      <span>Music</span>
+<!--      <svg class="icon">-->
+<!--        <use xlink:href = "#icon-erji"></use>-->
+<!--      </svg>-->
+      <img src="../assets/img/logo-dark.png" class="icon" >
+<!--      <span>Music</span>-->
     </div>
     <!--左侧浏览的菜单栏-->
     <ul class="navbar">
@@ -18,7 +19,7 @@
     <!--中间搜索框-->
     <div class="header-middle">
       <div class="header-search">
-        <input type="text" placeholder="搜索..." v-model="keyword">
+        <input type="text" placeholder="搜索..." v-model="keyword"  autocomplete="autocomplete">
         <div class="search-btn" @click="goSearch()" >
           <svg class="icon">
             <use xlink:href = "#icon-sousuo"></use>
@@ -28,14 +29,14 @@
     </div>
     <!--登录注册部分-->
     <ul class="navbar" >
-      <li v-for="(item,index) in rightHeaderList" :key="index"
+      <li  v-show="!loginIn" v-for="(item,index) in rightHeaderList" :key="index"
           :class="{active:index===rightHeaderIndex}" @click="getHeaderIndex(index,'right',item.path)">
         <i :class="item.icon"></i>
         <a>{{item.title}}</a>
       </li>
     </ul>
     <!--右边用户头像部分-->
-    <div class="header-right" v-show="true">
+    <div class="header-right" v-show="loginIn">
       <div id='user'>
         <img src='../assets/img/user.jpg' alt="" >
       </div>
@@ -50,8 +51,14 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex';
   export default {
     name: 'the-header',
+    computed : {
+      ...mapGetters({
+        loginIn:'loginIn'   //用户是否已登录
+      })
+    },
     data(){
       return{
         keyword: '',
@@ -77,23 +84,23 @@
             icon: 'el-icon-s-custom',
             path: 'my-music',
             title: '我的音乐'
-          }
+          },
+          {
+            icon: 'el-icon-s-opportunity',
+            path: '/about',
+            title: '关于我们'
+          },
         ],
         rightHeaderList: [   //右侧侧边栏内容
-          {
-            icon: 'el-icon-s-promotion',
-            path: '/register',
-            title: '注册'
-          },
           {
             icon: 'el-icon-s-check',
             path: '/login',
             title: '登录'
           },
           {
-            icon: 'el-icon-s-opportunity',
-            path: '/about',
-            title: '关于我们'
+            icon: 'el-icon-s-promotion',
+            path: '/register',
+            title: '注册'
           },
         ],
         dropMenuList: [       //用户下拉内容设置
@@ -129,7 +136,7 @@
       goSearch(){
         if (this.keyword || this.keyword!==''){
           this.$router.push({path:'/search',query:{keyword:this.keyword}})
-          //this.keyword=''
+          this.keyword=''    //清除搜索框内容
         }else{
           this.$notify({
             duration: 2000,
