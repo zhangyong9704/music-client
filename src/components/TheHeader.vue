@@ -77,12 +77,12 @@
           },
           {
             icon: 'el-icon-s-management',
-            path: 'song-list',
+            path: '/song-list',
             title: "歌单"
           },
           {
             icon: 'el-icon-s-custom',
-            path: 'my-music',
+            path: '/my-music',
             title: '我的音乐'
           },
           {
@@ -115,13 +115,19 @@
             title: '设置中心'
           },
         ],
-
       }
     },
     methods:{
       //显示激活的选项卡
       getHeaderIndex(index,flag,path){
         if ("left"===flag){
+          if ("/my-music"===path){   //点击我的音乐需要先判断是否进行登录
+            const user_info = localStorage.getItem(this.$store.state.common.storageConst);
+            if (user_info==null || user_info===""){
+              this.$message.success('请先进行登录');
+              return false
+            }
+          }
           this.leftHaderIndex = index;
           this.rightHeaderIndex = -1;
           this.$router.push({path:path})

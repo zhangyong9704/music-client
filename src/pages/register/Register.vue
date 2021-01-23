@@ -29,22 +29,25 @@
           <el-input v-model="registerForm.email" placeholder="邮箱"></el-input>
         </el-form-item>
         <el-form-item prop="birth" label="生日">
-          <el-date-picker v-model="registerForm.birth" placeholder="选择日期"
+          <el-date-picker v-model="registerForm.birth" placeholder="选择日期" type="date"
                           value-format="yyyy-MM-dd HH:mm:ss"
-                          style="width:100%"
-          ></el-date-picker>
+                          style="width:100%">
+          </el-date-picker>
         </el-form-item>
         <el-form-item prop="introduction" label="签名">
           <el-input v-model="registerForm.introduction" placeholder="签名"></el-input>
         </el-form-item>
         <el-form-item prop="location" label="地区">
           <el-select v-model="registerForm.location" placeholder="地区" style="width: 100%;">
-            <el-option v-for=" item in cities" :key="item.value" :label="item.label" :value="item.value"></el-option>
+            <el-option v-for="item of cities" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-form-item>
         <div class="login-btn">
           <el-button @click="goBack(-1)">取消</el-button>
-          <el-button type="primary" @click="SignUp">确定</el-button>
+          <el-button type="primary" @click="SignUp" element-loading-text="正在跳转中..."
+                     element-loading-spinner="el-icon-loading"
+                     element-loading-background="rgba(0, 0, 0, 0.8)"
+                     v-loading.fullscreen.lock="fullscreenLoading">确定</el-button>
         </div>
       </el-form>
     </div>
@@ -53,22 +56,15 @@
 
 <script>
   import {rules,cities} from '../../assets/data/form'
+  import Consumer from '../../api/consumer'
   export default {
     name: 'register',
     data() {
       return {
-        registerForm: {
-          username: '',       //用户名
-          password: '',       //密码
-          sex: '',            //性别
-          phoneNum: '',       //手机
-          email: '',          //邮箱
-          birth: '',          //生日
-          introduction: '',   //签名
-          location: ''       //地区
-        },
+        registerForm: {},
         cities: [],            //所有的地区--省
-        rules: {}               //表单提交的规则
+        rules: {} ,              //表单提交的规则
+        fullscreenLoading:false
       }
     },
     created() {
@@ -76,10 +72,38 @@
       this.cities = cities;
     },
     methods:{
-      SignUp(){},
+      //注册信息提交
+      SignUp(){
+        this.fullscreenLoading = true
+        this.$refs.registerForm.validate(valid => {
+          if (valid) {
+            Consumer.registerConsumer(this.registerForm).then((response) =>{
+              if (response.code === 200){
+                localStorage.setItem(this.$store.state.common.storageConst, this.registerForm.username);
+                setTimeout(() => {
+                  this.fullscreenLoading = false;
+                  this.registerForm = {}
+                  this.$router.push('/login');  //跳转到登录界面
+                  this.$message.success('注册成功');
+                }, 1000);
+              }else{
+                this.$message.warning(response.message);
+                this.registerForm = {}
+              }
+            }).catch(error =>{
+              this.$message.warning('注册失败，请重试！');
+              return false
+            })
+          } else {
+            this.$message.error('请输入补全注册信息');
+            return false;
+          }
+        });
+      },
 
-
+      //返回
       goBack(index){
+        this.registerForm = "";
         this.$router.go(index);
       }
     }
